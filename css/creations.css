@@ -1,0 +1,199 @@
+/* CRÉATIONS — une pile d'aperçus, pas une grille.
+   ------------------------------------------------------------------
+   Les quatre projets sont posés les uns sur les autres, décalés et
+   très légèrement inclinés : on les identifie tous, mais l'ensemble
+   tient dans un bloc compact. Chaque vignette a sa propre profondeur
+   (`--prof`), ce qui donne au parallaxe des amplitudes différentes et
+   fabrique le relief. js/creations.js écrit --px / --py au curseur. */
+
+.pile {
+  position: relative;
+  aspect-ratio: 16 / 10.4;
+  width: 100%;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.pile-item {
+  position: absolute;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--ombre-portee);
+  /* Position au repos + décalage curseur, proportionnel à la profondeur. */
+  transform:
+    translate3d(
+      calc(var(--px, 0) * var(--prof) * 26px),
+      calc(var(--py, 0) * var(--prof) * 18px),
+      0
+    )
+    rotate(var(--rot, 0deg))
+    scale(var(--ech, 1));
+  transition:
+    transform 0.9s var(--ease-sortie),
+    box-shadow var(--dur-3) var(--ease-sortie),
+    filter var(--dur-3) var(--ease-sortie);
+  will-change: transform;
+}
+
+.pile-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* Un voile très léger éteint les vignettes du fond ; celle qu'on survole
+   retrouve sa pleine densité. */
+.pile-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--os);
+  opacity: var(--voile, 0.12);
+  transition: opacity var(--dur-3) var(--ease-sortie);
+  pointer-events: none;
+}
+
+.pile-item:hover,
+.pile-item:focus-visible {
+  --ech: 1.045;
+  --voile: 0;
+  z-index: 20 !important;
+  box-shadow: var(--ombre-levee);
+}
+
+/* Étiquette du projet, révélée au survol. */
+.pile-legende {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 26px 14px 11px;
+  background: linear-gradient(to top, rgba(14, 17, 22, 0.82), transparent);
+  color: var(--os);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity var(--dur-2) var(--ease-sortie), transform var(--dur-2) var(--ease-sortie);
+}
+.pile-item:hover .pile-legende,
+.pile-item:focus-visible .pile-legende { opacity: 1; transform: none; }
+
+.pile-legende .nom {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 88, "wght" 680;
+  font-size: 0.94rem;
+  letter-spacing: -0.01em;
+}
+.pile-legende .type {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(243, 240, 233, 0.72);
+}
+
+/* --- Disposition au repos ------------------------------------------------
+   Quatre cadrages différents pour que la pile ne soit pas symétrique :
+   un grand paysage au fond, deux portraits qui mordent dessus, un
+   paysage plus petit en avant. */
+.pile-1 { /* Marée Large — paysage, au fond à gauche */
+  left: 0; top: 6%;
+  width: 62%; aspect-ratio: 16 / 10.7;
+  --rot: -2.4deg; --prof: 0.35; --voile: 0.16;
+  z-index: 1;
+}
+.pile-2 { /* Forma Bâtiment — paysage, décalé en haut à droite */
+  right: 0; top: 0;
+  width: 52%; aspect-ratio: 16 / 8.9;
+  --rot: 1.8deg; --prof: 0.6; --voile: 0.1;
+  z-index: 2;
+}
+.pile-3 { /* Mouvement Studio — portrait, au centre bas */
+  left: 33%; bottom: 0;
+  width: 27%; aspect-ratio: 3 / 4;
+  --rot: -1.2deg; --prof: 0.85; --voile: 0.04;
+  z-index: 3;
+}
+.pile-4 { /* FC Nova — portrait étroit, en avant à droite */
+  right: 9%; bottom: 4%;
+  width: 23%; aspect-ratio: 9 / 15;
+  --rot: 2.6deg; --prof: 1; --voile: 0.06;
+  z-index: 4;
+}
+
+/* Sous la pile, la liste des projets sert de légende et de repère. */
+.pile-index {
+  margin-top: var(--sp-6);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--trait);
+  border-block: 1px solid var(--trait);
+}
+.pile-index button {
+  background: var(--bg);
+  border: 0;
+  text-align: left;
+  padding: var(--sp-4) var(--sp-4) var(--sp-4) 0;
+  display: grid;
+  gap: 3px;
+  transition: background-color var(--dur-2) var(--ease-sortie), padding-left var(--dur-2) var(--ease-sortie);
+}
+.pile-index button:hover,
+.pile-index button.est-vise { background: var(--papier); padding-left: 12px; }
+.pile-index .nom {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 90, "wght" 660;
+  font-size: 0.96rem;
+}
+.pile-index .type {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+.pile-index button.est-vise .type { color: var(--orange); }
+
+@media (max-width: 980px) {
+  .pile-index { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* En dessous de 760 px la pile devient illisible : on repasse à un
+   défilement horizontal, plus honnête sur petit écran. */
+@media (max-width: 760px) {
+  .pile {
+    aspect-ratio: auto;
+    perspective: none;
+    display: flex;
+    gap: var(--sp-3);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-bottom: var(--sp-3);
+    scrollbar-width: none;
+  }
+  .pile::-webkit-scrollbar { display: none; }
+  .pile-item {
+    position: relative;
+    inset: auto;
+    flex: 0 0 auto;
+    width: 78%;
+    aspect-ratio: 16 / 10.4;
+    scroll-snap-align: start;
+    --rot: 0deg;
+    --voile: 0;
+    transform: none;
+  }
+  .pile-item:hover { --ech: 1; }
+  .pile-3, .pile-4 { aspect-ratio: 3 / 4; width: 58%; }
+  .pile-legende { opacity: 1; transform: none; }
+}

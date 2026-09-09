@@ -1,0 +1,88 @@
+/* Moteur d'apparition et de mouvement.
+   ------------------------------------------------------------------
+   Une seule mécanique pour tout le site : un élément marqué [data-reveal]
+   démarre légèrement décalé et flou de rien du tout, puis se pose. Les
+   enfants d'un même groupe se décalent de quelques centièmes pour que
+   l'ensemble arrive « en vague » plutôt que d'un bloc.
+
+   Les distances restent volontairement courtes (14 px) : le mouvement doit
+   se sentir sans se voir. */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity var(--dur-3) var(--ease-sortie) var(--reveal-delay, 0s),
+    transform var(--dur-3) var(--ease-sortie) var(--reveal-delay, 0s),
+    clip-path var(--dur-3) var(--ease-sortie) var(--reveal-delay, 0s);
+  will-change: opacity, transform;
+}
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* Variantes : le titre se dévoile par un volet, l'image par un fondu
+   d'échelle, la ligne par un trait qui se tire. */
+[data-reveal="volet"] {
+  clip-path: inset(0 0 102% 0);
+  transform: none;
+}
+[data-reveal="volet"].is-in { clip-path: inset(0 0 -12% 0); }
+
+[data-reveal="cadre"] { transform: translate3d(0, 20px, 0) scale(1.02); }
+[data-reveal="cadre"].is-in { transform: none; }
+
+[data-reveal="cote"] { transform: translate3d(-16px, 0, 0); }
+[data-reveal="cote"].is-in { transform: none; }
+
+[data-reveal="trait"] {
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+[data-reveal="trait"].is-in { transform: scaleX(1); }
+
+.no-js [data-reveal] { opacity: 1; transform: none; clip-path: none; }
+
+/* Parallaxe : js/motion.js écrit --shift, le CSS l'applique. Séparer les
+   deux permet de composer avec d'autres transformations sans conflit. */
+[data-parallax] {
+  transform: translate3d(0, var(--shift, 0px), 0);
+  will-change: transform;
+}
+
+/* Suivi du curseur : profondeur de quelques pixels seulement. */
+[data-curseur] {
+  transform: translate3d(
+    calc(var(--mx) * var(--curseur-x, 6px)),
+    calc(var(--my) * var(--curseur-y, 6px)),
+    0
+  );
+  transition: transform 0.9s var(--ease-sortie);
+}
+
+/* Survol standard des blocs cliquables : ils avancent d'un cheveu. */
+.leve {
+  transition:
+    transform var(--dur-2) var(--ease-sortie),
+    box-shadow var(--dur-2) var(--ease-sortie),
+    border-color var(--dur-2) var(--ease-sortie),
+    background-color var(--dur-2) var(--ease-sortie);
+}
+.leve:hover { transform: translateY(-3px); }
+
+/* Compteurs : le chiffre monte, l'unité reste fixe. */
+.chiffre-valeur { font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal] { opacity: 1; transform: none; clip-path: none; }
+  [data-parallax], [data-curseur] { transform: none; }
+}

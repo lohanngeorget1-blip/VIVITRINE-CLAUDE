@@ -1,0 +1,89 @@
+/* Ambiance de page.
+   ------------------------------------------------------------------
+   Chaque onglet a son entrée : fond, couleur de repère et traitement
+   du titre changent d'une page à l'autre. On sait où l'on vient
+   d'arriver avant même d'avoir lu le titre.
+
+   La règle de la DA tient : l'ambiance colore des surfaces, jamais des
+   actions. L'orange reste réservé aux boutons et aux liens. */
+
+.entete-page {
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(var(--header-h) + var(--sp-8));
+  padding-bottom: var(--sp-8);
+  background: var(--ambiance-fond, var(--os));
+  color: var(--ambiance-texte, var(--texte));
+}
+
+.entete-page h1 {
+  margin-top: var(--sp-4);
+  max-width: 17ch;
+  color: inherit;
+}
+
+.entete-page .section-intro {
+  margin-top: var(--sp-5);
+  color: var(--ambiance-doux, var(--texte-doux));
+}
+
+/* Le repère de page prend la couleur de l'ambiance plutôt que l'orange :
+   l'orange ne doit désigner que ce sur quoi on peut cliquer. */
+.entete-page .etiquette { color: var(--ambiance-doux, var(--texte-doux)); }
+.entete-page .etiquette::before { background: var(--ambiance, var(--orange)); }
+
+/* Un filet coloré ferme l'en-tête et donne sa teinte à la page. */
+.entete-page::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 3px;
+  background: var(--ambiance, var(--orange));
+  transform: scaleX(var(--filet, 1));
+  transform-origin: left;
+}
+
+/* Le chiffre de la page, très grand, en filigrane : chaque onglet a le
+   sien, ce qui distingue les entrées au premier coup d'œil. */
+.entete-page .indice {
+  position: absolute;
+  right: calc(var(--container-pad) - 0.06em);
+  bottom: -0.28em;
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 62, "wght" 700;
+  font-size: clamp(9rem, 24vw, 20rem);
+  line-height: 0.8;
+  color: var(--ambiance, var(--orange));
+  opacity: 0.09;
+  pointer-events: none;
+  user-select: none;
+}
+
+.entete-page.est-sombre {
+  --ambiance-fond: var(--nuit);
+  --ambiance-texte: var(--os);
+  --ambiance-doux: rgba(243, 240, 233, 0.66);
+}
+.entete-page.est-sombre .indice { opacity: 0.16; }
+
+/* --- ambiances ------------------------------------------------------- */
+body[data-page="creation"]  { --ambiance: var(--bleu); }
+body[data-page="offres"]    { --ambiance: var(--vert); }
+body[data-page="creations"] { --ambiance: var(--orange); }
+body[data-page="agence"]    { --ambiance: var(--bleu); }
+body[data-page="faq"]       { --ambiance: var(--vert); }
+body[data-page="contact"]   { --ambiance: var(--orange); }
+body[data-page="legal"]     { --ambiance: var(--gris); }
+
+body[data-page="offres"] .entete-page  { --ambiance-fond: var(--vert-fond); }
+body[data-page="agence"] .entete-page  { --ambiance-fond: var(--bleu-fond); }
+body[data-page="faq"] .entete-page     { --ambiance-fond: var(--papier); }
+body[data-page="legal"] .entete-page   { --ambiance-fond: var(--papier); }
+
+@media (max-width: 720px) {
+  .entete-page {
+    padding-top: calc(var(--header-h) + var(--sp-6));
+    padding-bottom: var(--sp-6);
+  }
+  .entete-page .indice { font-size: clamp(7rem, 42vw, 12rem); opacity: 0.07; }
+}

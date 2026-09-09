@@ -1,0 +1,52 @@
+// Grille tarifaire — source unique de la section « Offres ».
+export const offres = [
+  {
+    nom: "Vitrine",
+    prix: "890 €",
+    modalite: "paiement unique · hébergement en sus",
+    perimetre: "3 à 4 pages",
+    resume: "Exister proprement en ligne : qui vous êtes, ce que vous faites, comment vous joindre.",
+    points: [
+      "Design sur mesure, jamais un gabarit",
+      "Conçu d'abord pour le téléphone",
+      "Référencement local et fiche Google",
+      "Formulaire de contact",
+      "Mise en ligne et prise en main",
+      "Livré en 15 jours",
+    ],
+    action: "Choisir Vitrine",
+  },
+  {
+    nom: "Signature",
+    prix: "1 690 €",
+    modalite: "paiement unique · hébergement en sus",
+    perimetre: "6 à 8 pages",
+    resume: "La formule complète, pour un site qui fait réellement venir des clients.",
+    points: [
+      "Tout le forfait Vitrine, plus abouti",
+      "Textes rédigés page par page avec vous",
+      "Animations et interactions sur mesure",
+      "Galerie, avis clients, réservation",
+      "Nom de domaine et hébergement accompagnés",
+      "Trois mois de suivi après la mise en ligne",
+    ],
+    avant: true,
+    marque: "le plus choisi",
+    action: "Choisir Signature",
+  },
+  {
+    nom: "Sur mesure",
+    prix: "Sur devis",
+    modalite: "selon le périmètre",
+    perimetre: "Pages illimitées",
+    resume: "Quand le projet sort du cadre : boutique, réservation, plusieurs langues, outils métier.",
+    points: [
+      "Fonctionnalités développées pour vous",
+      "Architecture pensée pour évoluer",
+      "Stratégie de référencement complète",
+      "Accompagnement dédié sur la durée",
+      "Maintenance et évolutions au fil de l'eau",
+    ],
+    action: "Demander un devis",
+  },
+];

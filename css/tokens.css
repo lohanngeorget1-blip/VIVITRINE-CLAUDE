@@ -1,0 +1,117 @@
+/* VIVITRINE — direction artistique « Rennes, atelier numérique »
+   ------------------------------------------------------------------
+   Une base sobre (encre + os), deux complémentaires qui viennent des
+   façades de l'intra-muros — le bleu de la Vilaine, le vert du Thabor —
+   et l'orange du logo comme unique signal. L'orange ne décore jamais :
+   il désigne. S'il apparaît, c'est qu'il y a quelque chose à faire, à
+   lire ou à cliquer. Cette règle est ce qui lui garde son impact.
+
+   Cette DA est la base définitive du site : les pages, les composants
+   et les animations ne piochent leurs valeurs que dans ce fichier. */
+
+:root {
+  /* ---- Base neutre */
+  --encre: #0e1116;          /* texte, fonds sombres */
+  --encre-2: #171d26;        /* surfaces sombres surélevées */
+  --encre-3: #232b36;        /* filets sur fond sombre */
+  --os: #f3f0e9;             /* fond de page — accordé au fond du plan vidéo */
+  --papier: #fbfaf7;         /* cartes posées sur l'os */
+  --gris: #6a6e74;           /* texte secondaire */
+  --gris-clair: #9aa0a6;
+
+  /* ---- Signal */
+  --orange: #ff4a0a;
+  --orange-vif: #ff6a2c;
+  --orange-fond: #ffece3;
+
+  /* ---- Complémentaires
+     Le bleu n'est pas un filet décoratif : il porte les surfaces sombres
+     du site. Les fonds qui étaient encre passent en nuit, ce qui donne
+     au site sa seconde couleur sans toucher à la signature orange —
+     l'orange ressort même davantage sur un bleu profond que sur du noir. */
+  --nuit: #101c33;           /* fonds sombres — bleu de nuit */
+  --nuit-2: #18294a;         /* surfaces sombres surélevées */
+  --nuit-3: #24365c;         /* filets sur fond nuit */
+  --bleu: #1b3bd8;           /* Bleu Vilaine — tracés et graphiques */
+  --bleu-encre: #24407e;     /* bleu lisible en texte sur fond clair */
+  --bleu-fond: #e7eaf7;      /* aplat très pâle */
+  --vert: #0e8f76;           /* Vert Thabor */
+  --vert-fond: #e2f1ed;
+
+  /* ---- Filets */
+  --trait: rgba(14, 17, 22, 0.13);
+  --trait-fort: rgba(14, 17, 22, 0.24);
+  --trait-clair: rgba(243, 240, 233, 0.17);
+
+  /* ---- Rôles */
+  --bg: var(--os);
+  --texte: var(--encre);
+  --texte-doux: var(--gris);
+
+  /* ---- Typographie
+     Archivo en largeur resserrée porte les titres : compact, très
+     contrasté, une vraie personnalité de grotesque contemporain.
+     Inter Tight tient le texte courant, JetBrains Mono les étiquettes. */
+  --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --font-text: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --wdth-display: 84;        /* largeur Archivo des titres */
+  --wdth-serre: 78;          /* largeur des très grands titres */
+
+  --fs-hero: clamp(3.2rem, 8.4vw, 8.4rem);
+  --fs-h1: clamp(2.4rem, 5.4vw, 4.6rem);
+  --fs-h2: clamp(1.8rem, 3.3vw, 3rem);
+  --fs-h3: clamp(1.02rem, 1.2vw, 1.22rem);
+  --fs-lead: clamp(1rem, 1.15vw, 1.12rem);
+  --fs-body: 0.975rem;
+  --fs-small: 0.84rem;
+  --fs-label: 0.68rem;
+
+  /* ---- Espacement — volontairement serré : le site doit se lire
+     comme une revue, pas comme une brochure aérée. */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 22px;
+  --sp-6: 30px;
+  --sp-7: 42px;
+  --sp-8: 58px;
+  --sp-9: 78px;
+
+  --pad-section: clamp(52px, 5.6vw, 92px);
+  --pad-section-sm: clamp(38px, 4vw, 60px);
+
+  --container-w: 1340px;
+  --container-pad: clamp(18px, 4vw, 56px);
+
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  --ombre-douce: 0 1px 2px rgba(14, 17, 22, 0.04), 0 8px 24px rgba(14, 17, 22, 0.06);
+  --ombre-portee: 0 2px 6px rgba(14, 17, 22, 0.05), 0 18px 48px rgba(14, 17, 22, 0.12);
+  --ombre-levee: 0 4px 12px rgba(14, 17, 22, 0.07), 0 32px 72px rgba(14, 17, 22, 0.18);
+
+  /* ---- Mouvement — une seule famille de courbes pour tout le site.
+     C'est ce qui donne l'impression que tout bouge « pareil ». */
+  --ease-sortie: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-doux: cubic-bezier(0.65, 0.05, 0.15, 1);
+  --ease-elan: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-1: 0.2s;
+  --dur-2: 0.42s;
+  --dur-3: 0.85s;
+
+  --header-h: 68px;
+
+  /* Position du curseur, normalisée -1..1, alimentée par js/motion.js.
+     Les composants s'en servent pour des décalages de quelques pixels. */
+  --mx: 0;
+  --my: 0;
+}
+
+@media (max-width: 900px) {
+  :root { --header-h: 58px; }
+}

@@ -1,0 +1,265 @@
+/* HERO — le plan est l'élément central du site.
+   ------------------------------------------------------------------
+   La vidéo est une boucle aller-retour fabriquée en amont (le montage
+   contient déjà le sens normal puis le sens inverse), si bien qu'un
+   simple `loop` suffit : aucun redémarrage, aucune coupure, aucun saut.
+   Le fond du plan a été étalonné sur --os : le phare paraît posé sur la
+   page plutôt qu'enfermé dans un cadre. */
+
+.hero {
+  padding-top: calc(var(--header-h) + clamp(14px, 2.6vw, 34px));
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.hero-tete { flex: none; }
+
+.hero-ligne-haute {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--trait);
+}
+.hero-compteur {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  color: var(--texte-doux);
+  font-variant-numeric: tabular-nums;
+}
+.hero-compteur b { color: var(--orange); font-weight: 500; }
+
+/* ------------------------------------------------------------- titre */
+.hero-titre {
+  margin-top: clamp(14px, 2.4vw, 30px);
+  font-size: clamp(2.5rem, 6vw, 5.6rem);
+  font-variation-settings: "wdth" var(--wdth-serre), "wght" 760;
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  text-wrap: nowrap;
+}
+.hero-titre .ligne { display: block; overflow: hidden; }
+.hero-titre .ligne > span {
+  display: block;
+  transform: translateY(104%);
+  transition: transform 1.05s var(--ease-sortie);
+}
+.hero-titre.est-entre .ligne > span { transform: none; }
+.hero-titre .ligne:nth-child(2) > span { transition-delay: 0.07s; }
+
+/* Ligne tournante : c'est elle qui rend l'entrée vivante. Les mots
+   partent vers le haut avec un très léger flou, les suivants montent à
+   leur place, décalés de quelques centièmes. */
+.hero-rotatif {
+  display: block;
+  position: relative;
+  height: 1em;
+  color: var(--orange);
+}
+.hero-phrase {
+  position: absolute;
+  inset: 0;
+  white-space: nowrap;
+  display: flex;
+  gap: 0.26em;
+}
+.hero-phrase .mot {
+  display: inline-block;
+  transform: translateY(var(--from, 0));
+  opacity: var(--op, 1);
+  filter: blur(var(--bl, 0px));
+  transition:
+    transform 0.62s var(--ease-sortie),
+    opacity 0.42s var(--ease-sortie),
+    filter 0.42s var(--ease-sortie);
+  transition-delay: calc(var(--i, 0) * 0.035s);
+}
+.hero-phrase.entre .mot { --from: 108%; --op: 0; --bl: 5px; }
+.hero-phrase.presente .mot { --from: 0%; --op: 1; --bl: 0px; }
+.hero-phrase.sort .mot { --from: -78%; --op: 0; --bl: 5px; }
+
+/* ------------------------------------------------------- accroche + cta */
+.hero-ligne-basse {
+  margin-top: clamp(16px, 2.4vw, 30px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--sp-5);
+  align-items: end;
+}
+.hero-accroche {
+  font-size: var(--fs-lead);
+  color: var(--texte-doux);
+  max-width: 44ch;
+  line-height: 1.5;
+}
+.hero-accroche strong { color: var(--texte); font-weight: 600; }
+.hero-actions { display: flex; gap: 10px; align-items: center; }
+
+/* --------------------------------------------------------------- plan */
+.hero-scene {
+  position: relative;
+  flex: 1 1 auto;
+  /* Une bande haute : en 16/9 dans un cadre trop plat, le recadrage
+     « cover » mangeait plus de la moitié de l'image. */
+  min-height: clamp(360px, 64svh, 820px);
+  margin-top: clamp(16px, 2.6vw, 32px);
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  /* Ce cadre crée un contexte d'empilement : sans fond peint, la fusion
+     « multiply » de la vidéo n'aurait rien sur quoi se poser. On lui donne
+     donc la couleur de la page, sur laquelle le blanc du plan vient fondre. */
+  background: var(--bg);
+}
+.hero-media {
+  position: absolute;
+  inset: 0;
+}
+/* Le montage contient l'aller puis le retour : `loop` suffit à obtenir
+   la boucle infinie, sans coupure ni redémarrage visibles. */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 50%;
+  /* Le plan est fondu dans la page par ses quatre bords : la limite du
+     cadre vidéo ne doit jamais se voir. */
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0%, #000 6%, #000 94%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0%, #000 6%, #000 94%, transparent 100%),
+    linear-gradient(to right, transparent 0%, #000 6%, #000 94%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  /* Le fond du plan est un blanc froid (245,245,245) alors que la page est
+     une écume chaude (243,240,233) : posé tel quel, le cadre se voyait comme
+     un rectangle plus clair. En fusion « multiply », le blanc prend
+     exactement la couleur de la page et la limite disparaît. */
+  mix-blend-mode: multiply;
+  transform: scale(var(--zoom, 1)) translate3d(0, var(--shift, 0px), 0);
+  transition: transform 1.2s var(--ease-sortie);
+}
+.hero-secours {
+  position: absolute;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: var(--sp-6);
+  text-align: center;
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 84, "wght" 700;
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+  color: var(--texte-doux);
+}
+
+/* --------------------------------------------------------------- pied */
+.hero-pied {
+  flex: none;
+  padding-block: clamp(12px, 1.8vw, 20px) clamp(14px, 2vw, 24px);
+}
+.hero-pied-inner {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 48px);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--trait);
+}
+.hero-faits {
+  display: flex;
+  gap: clamp(18px, 3.4vw, 54px);
+  flex-wrap: wrap;
+}
+.hero-fait { display: grid; gap: 1px; }
+.hero-fait .v {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 86, "wght" 700;
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  letter-spacing: -0.02em;
+}
+.hero-fait .k {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+
+/* Jauge du plan : elle se remplit quand la vidéo avance et se vide quand
+   elle repart en arrière. C'est le lien visible entre le texte et l'image. */
+.hero-jauge {
+  margin-left: auto;
+  width: clamp(90px, 14vw, 190px);
+  height: 2px;
+  background: var(--trait);
+  position: relative;
+  flex: none;
+}
+.hero-jauge i {
+  position: absolute;
+  inset: 0;
+  background: var(--orange);
+  transform: scaleX(var(--lecture, 0));
+  transform-origin: left;
+}
+.hero-defiler {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+  flex: none;
+}
+.hero-defiler .trait {
+  width: 26px; height: 1px;
+  background: var(--trait-fort);
+  position: relative;
+  overflow: hidden;
+}
+.hero-defiler .trait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--orange);
+  animation: defiler 2.4s var(--ease-doux) infinite;
+}
+@keyframes defiler {
+  0%   { transform: translateX(-100%); }
+  60%  { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+
+@media (max-width: 1080px) {
+  .hero-titre { text-wrap: balance; white-space: normal; }
+  .hero-phrase { white-space: normal; flex-wrap: wrap; }
+  .hero-ligne-basse { grid-template-columns: 1fr; align-items: start; }
+  .hero-jauge { display: none; }
+}
+@media (max-width: 900px) {
+  /* La ligne tournante est plus longue que la ligne fixe : on la pose un
+     cran en dessous pour qu'aucune formulation ne se fasse couper. */
+  .hero-rotatif { font-size: 0.58em; }
+  .hero-titre .ligne:nth-child(2) { margin-top: 0.12em; }
+
+  /* En portrait, un recadrage « cover » couperait la composition du plan.
+     On montre le cadre entier : le fond du montage est accordé à --os,
+     les bandes ne se voient donc pas. */
+  .hero-video { object-fit: contain; object-position: center; }
+}
+
+@media (max-width: 700px) {
+  .hero { min-height: auto; padding-bottom: var(--sp-5); }
+  .hero-scene { min-height: 42svh; }
+  .hero-pied-inner { flex-direction: column; align-items: flex-start; gap: var(--sp-4); }
+  .hero-defiler { display: none; }
+}

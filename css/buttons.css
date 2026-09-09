@@ -1,0 +1,82 @@
+/* Boutons — l'orange est réservé à l'action principale.
+   Le texte des pavés orange est encre et non blanc : le contraste passe
+   largement l'AA, et le couple orange/noir est ce qui « fait » la marque. */
+
+.btn {
+  --btn-h: 44px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  height: var(--btn-h);
+  padding-inline: 20px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 96, "wght" 640;
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    color var(--dur-2) var(--ease-sortie),
+    border-color var(--dur-2) var(--ease-sortie),
+    background-color var(--dur-2) var(--ease-sortie),
+    transform var(--dur-2) var(--ease-elan);
+}
+
+/* Le fond du survol monte depuis le bas plutôt que de s'allumer d'un coup. */
+.btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: translateY(101%);
+  transition: transform var(--dur-2) var(--ease-sortie);
+}
+.btn:hover::before { transform: translateY(0); }
+.btn:active { transform: scale(0.985); }
+
+.btn .fleche {
+  transition: transform var(--dur-2) var(--ease-elan);
+  flex: none;
+}
+.btn:hover .fleche { transform: translateX(4px); }
+
+.btn-primaire {
+  background: var(--orange);
+  color: var(--encre);
+}
+.btn-primaire::before { background: var(--encre); }
+.btn-primaire:hover { color: var(--os); }
+
+.btn-encre {
+  background: var(--encre);
+  color: var(--os);
+}
+.btn-encre::before { background: var(--orange); }
+.btn-encre:hover { color: var(--encre); }
+
+.btn-contour {
+  background: transparent;
+  color: var(--texte);
+  border-color: var(--trait-fort);
+}
+.btn-contour::before { background: var(--encre); }
+.btn-contour:hover { color: var(--os); border-color: var(--encre); }
+
+.on-sombre .btn-contour { color: var(--os); border-color: rgba(243, 240, 233, 0.3); }
+.on-sombre .btn-contour::before { background: var(--os); }
+.on-sombre .btn-contour:hover { color: var(--encre); border-color: var(--os); }
+
+.btn-sm { --btn-h: 36px; padding-inline: 15px; font-size: 0.8rem; }
+.btn-bloc { display: flex; width: 100%; }
+
+/* Bouton magnétique : js/motion.js écrit --pull-x / --pull-y au survol,
+   le bouton suit le curseur de quelques pixels avant de revenir. */
+[data-magnetique] {
+  transform: translate3d(var(--pull-x, 0px), var(--pull-y, 0px), 0);
+}
+[data-magnetique]:active { transform: translate3d(var(--pull-x, 0px), var(--pull-y, 0px), 0) scale(0.985); }

@@ -1,0 +1,201 @@
+/* Barre de navigation — basse, dense, et qui se sait toujours située :
+   un filet de progression suit la lecture de la page. */
+
+.navbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 90;
+  height: var(--header-h);
+  transition: background-color var(--dur-2) var(--ease-sortie),
+              box-shadow var(--dur-2) var(--ease-sortie),
+              transform var(--dur-2) var(--ease-sortie);
+}
+.navbar::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: var(--trait);
+  opacity: 0;
+  transition: opacity var(--dur-2) var(--ease-sortie);
+}
+.navbar.est-defile {
+  background: rgba(243, 240, 233, 0.86);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+}
+.navbar.est-defile::after { opacity: 1; }
+
+/* On escamote la barre quand on descend vite, on la rend dès qu'on remonte. */
+.navbar.est-cachee { transform: translateY(-101%); }
+
+.navbar-inner {
+  height: 100%;
+  max-width: var(--container-w);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-6);
+}
+
+.marque {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex: none;
+}
+.marque-signe {
+  width: 24px; height: auto;
+  transition: transform var(--dur-2) var(--ease-elan);
+}
+.marque:hover .marque-signe { transform: rotate(-6deg) scale(1.06); }
+.marque-mot {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 88, "wght" 720;
+  font-size: 1.02rem;
+  letter-spacing: 0.02em;
+}
+
+.nav-liens {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+}
+.nav-lien {
+  position: relative;
+  padding: 7px 11px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--texte-doux);
+  border-radius: var(--radius-pill);
+  transition: color var(--dur-1) var(--ease-sortie);
+}
+.nav-lien::after {
+  content: "";
+  position: absolute;
+  left: 11px; right: 11px; bottom: 2px;
+  height: 1.5px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-2) var(--ease-sortie);
+}
+.nav-lien:hover { color: var(--texte); }
+.nav-lien:hover::after { transform: scaleX(1); }
+.nav-lien.est-actif { color: var(--texte); font-weight: 600; }
+.nav-lien.est-actif::after { transform: scaleX(1); }
+
+.nav-droite {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+}
+
+/* Filet de progression de lecture — 1,5 px, orange, en bas de la barre. */
+.nav-jauge {
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 1.5px;
+  width: 100%;
+  transform: scaleX(var(--progres, 0));
+  transform-origin: left;
+  background: var(--orange);
+  z-index: 2;
+}
+
+.nav-bascule {
+  display: none;
+  width: 38px; height: 38px;
+  border: 1px solid var(--trait-fort);
+  border-radius: 50%;
+  background: transparent;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--dur-1) var(--ease-sortie), border-color var(--dur-1) var(--ease-sortie);
+}
+.nav-bascule span {
+  display: block;
+  width: 15px; height: 1.5px;
+  background: var(--texte);
+  position: relative;
+  transition: background-color var(--dur-1) linear;
+}
+.nav-bascule span::before,
+.nav-bascule span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 15px; height: 1.5px;
+  background: var(--texte);
+  transition: transform var(--dur-2) var(--ease-sortie);
+}
+.nav-bascule span::before { top: -5px; }
+.nav-bascule span::after { top: 5px; }
+.nav-bascule.est-ouvert span { background: transparent; }
+.nav-bascule.est-ouvert span::before { transform: translateY(5px) rotate(45deg); }
+.nav-bascule.est-ouvert span::after { transform: translateY(-5px) rotate(-45deg); }
+
+/* ------------------------------------------------------------ mobile */
+.menu-mobile {
+  position: fixed;
+  inset: var(--header-h) 0 0 0;
+  z-index: 89;
+  background: var(--os);
+  padding: var(--sp-6) var(--container-pad) var(--sp-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.5s var(--ease-sortie);
+  overflow-y: auto;
+}
+.menu-mobile.est-ouvert { clip-path: inset(0 0 0 0); }
+
+.menu-mobile-liens { display: flex; flex-direction: column; }
+.menu-mobile-liens a {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--trait);
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 88, "wght" 660;
+  font-size: 1.45rem;
+  letter-spacing: -0.02em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s var(--ease-sortie), transform 0.4s var(--ease-sortie);
+}
+.menu-mobile.est-ouvert .menu-mobile-liens a {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--i, 0) * 0.045s + 0.1s);
+}
+.menu-mobile-liens a::after {
+  content: "→";
+  color: var(--orange);
+  font-size: 1rem;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity var(--dur-2) var(--ease-sortie), transform var(--dur-2) var(--ease-sortie);
+}
+.menu-mobile-liens a:hover::after { opacity: 1; transform: none; }
+
+.menu-mobile-pied {
+  margin-top: auto;
+  display: grid;
+  gap: var(--sp-3);
+}
+
+@media (max-width: 1080px) {
+  .nav-liens { display: none; }
+  .nav-bascule { display: flex; }
+  .nav-cta { display: none; }
+  .nav-droite { margin-left: auto; }
+}
+@media (min-width: 1081px) {
+  .menu-mobile { display: none; }
+}

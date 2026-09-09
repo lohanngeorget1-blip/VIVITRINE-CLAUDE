@@ -1,0 +1,65 @@
+/* Frise « Rennes intra-muros » — la signature graphique du site.
+   ------------------------------------------------------------------
+   Le motif défile de la droite vers la gauche, en continu. Deux
+   exemplaires suffisent : quand le premier a parcouru exactement sa
+   largeur, la piste se remet à zéro sans que rien ne bouge à l'écran.
+
+   Le dessin est appliqué en masque plutôt qu'inséré dans la page : le
+   fichier est mis en cache une fois pour tout le site, et la frise se
+   teinte par `currentColor` comme n'importe quel texte. */
+
+.frise {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+.frise-piste {
+  display: flex;
+  width: max-content;
+  /* Allure constante, sans lien avec le scroll ni le curseur : la ville
+     passe en fond, comme un décor, et rien ne vient la saccader. */
+  animation: frise-defile var(--duree, 78s) linear infinite;
+}
+.frise-motif {
+  display: block;
+  height: var(--h, 104px);
+  aspect-ratio: 2682 / 272;
+  flex: none;
+  background-color: currentColor;
+  -webkit-mask: url("../assets/graphics/rennes.svg") no-repeat center / 100% 100%;
+  mask: url("../assets/graphics/rennes.svg") no-repeat center / 100% 100%;
+}
+@keyframes frise-defile {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Bandeau autonome, entre deux sections : la ville passe, on continue. */
+.frise-bandeau {
+  border-block: 1px solid var(--trait);
+  padding-block: clamp(10px, 1.6vw, 18px);
+  color: var(--encre);
+  opacity: 0.5;
+}
+.frise-bandeau .frise-motif { --h: clamp(64px, 8vw, 108px); }
+
+/* En décor de section : plus discrète, ancrée en bas. */
+.frise-decor {
+  position: absolute;
+  inset: auto 0 0 0;
+  opacity: 0.16;
+  z-index: 0;
+}
+.frise-decor .frise-motif { --h: clamp(90px, 12vw, 160px); }
+.on-sombre .frise-decor { opacity: 0.2; color: var(--os); }
+
+.frise-orange { color: var(--orange); opacity: 0.42; }
+.frise-bleu   { color: var(--bleu);   opacity: 0.34; }
+.frise-vert   { color: var(--vert);   opacity: 0.36; }
+
+@media (prefers-reduced-motion: reduce) {
+  .frise-piste { animation: none; }
+}

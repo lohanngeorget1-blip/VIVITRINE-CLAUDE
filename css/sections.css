@@ -1,0 +1,359 @@
+/* Sections courantes.
+   ------------------------------------------------------------------
+   Toutes suivent la même grammaire : un filet, une grille dense, des
+   étiquettes monospace pour situer, et l'orange uniquement là où il y a
+   quelque chose à faire ou à retenir. */
+
+/* ------------------------------------------------------------- services */
+.services-grille {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--trait);
+}
+.service {
+  padding: var(--sp-5) var(--sp-4) var(--sp-6) 0;
+  border-right: 1px solid var(--trait);
+  position: relative;
+}
+.service:last-child { border-right: 0; }
+.service .num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--texte-doux);
+  letter-spacing: 0.14em;
+}
+.service h3 { margin-top: var(--sp-4); }
+.service p {
+  margin-top: var(--sp-3);
+  color: var(--texte-doux);
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  max-width: 30ch;
+}
+/* Le filet orange se tire sous la colonne survolée. */
+.service::after {
+  content: "";
+  position: absolute;
+  inset: -1px auto auto 0;
+  width: 100%;
+  height: 2px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-2) var(--ease-sortie);
+}
+.service:hover::after { transform: scaleX(1); }
+
+@media (max-width: 980px) {
+  .services-grille { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .service:nth-child(2n) { border-right: 0; }
+  .service:nth-child(n+3) { border-top: 1px solid var(--trait); }
+}
+@media (max-width: 560px) {
+  .services-grille { grid-template-columns: 1fr; }
+  .service { border-right: 0; }
+  .service + .service { border-top: 1px solid var(--trait); }
+}
+
+/* -------------------------------------------------------------- méthode */
+.methode { position: relative; }
+.methode-liste {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--trait);
+  border: 1px solid var(--trait);
+}
+.etape {
+  background: var(--bg);
+  padding: var(--sp-5);
+  display: grid;
+  align-content: start;
+  gap: var(--sp-3);
+  transition: background-color var(--dur-2) var(--ease-sortie);
+}
+.etape:hover { background: var(--papier); }
+/* Le numéro d'étape est un repère de lecture, pas une action : il prend
+   le bleu. L'orange reste réservé à ce sur quoi on peut cliquer. */
+.etape-num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.16em;
+  color: var(--bleu-encre);
+}
+.etape p { color: var(--texte-doux); font-size: var(--fs-small); line-height: 1.55; }
+.etape-duree {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--texte-doux);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--trait);
+}
+@media (max-width: 900px) { .methode-liste { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .methode-liste { grid-template-columns: 1fr; } }
+
+/* -------------------------------------------------------------- chiffres */
+.chiffres {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--sp-5);
+  padding-block: var(--sp-6);
+  border-block: 1px solid var(--trait);
+}
+.chiffre-valeur {
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  font-variation-settings: "wdth" 82, "wght" 720;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+.chiffre-valeur .u { color: var(--orange); }
+.chiffre-legende {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-small);
+  color: var(--texte-doux);
+  max-width: 22ch;
+}
+@media (max-width: 760px) { .chiffres { grid-template-columns: repeat(2, 1fr); gap: var(--sp-5) var(--sp-4); } }
+
+/* ------------------------------------------------------------ réassurance */
+.raisons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-5);
+}
+.raison {
+  border: 1px solid var(--trait);
+  border-radius: var(--radius-md);
+  padding: var(--sp-5);
+  background: var(--papier);
+  display: grid;
+  gap: var(--sp-3);
+  align-content: start;
+}
+.on-sombre .raison { background: var(--nuit-2); border-color: var(--trait-clair); }
+.raison .icone { width: 22px; height: 22px; color: var(--orange); }
+.raison p { color: var(--texte-doux); font-size: var(--fs-small); line-height: 1.55; }
+.raison:hover { border-color: var(--trait-fort); box-shadow: var(--ombre-douce); }
+@media (max-width: 900px) { .raisons { grid-template-columns: 1fr; } }
+
+/* -------------------------------------------------------------- réponse */
+.duo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 72px);
+  align-items: center;
+}
+@media (max-width: 900px) { .duo { grid-template-columns: 1fr; gap: var(--sp-6); } }
+
+.liste-cochee { display: grid; gap: var(--sp-3); margin-top: var(--sp-5); }
+.liste-cochee li {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 11px;
+  align-items: start;
+  font-size: var(--fs-small);
+  color: var(--texte-doux);
+}
+.liste-cochee .icone { width: 14px; height: 14px; margin-top: 4px; color: var(--orange); }
+
+/* -------------------------------------------------------------- responsive
+   Le téléphone est une preuve, pas une décoration : il reste petit, calé
+   contre la liste des écrans supportés. */
+.responsive-bloc {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(22px, 4vw, 60px);
+  align-items: center;
+}
+.telephone-cadre {
+  position: relative;
+  width: clamp(150px, 17vw, 216px);
+  flex: none;
+  filter: drop-shadow(0 22px 44px rgba(14, 17, 22, 0.22));
+  /* Deux mouvements se cumulent : le suivi du curseur (--mx/--my) et le
+     décalage au défilement (--shift), écrit par js/motion.js. */
+  transform: translate3d(
+    calc(var(--mx) * 8px),
+    calc(var(--my) * 8px + var(--shift, 0px)),
+    0
+  );
+  transition: transform 0.9s var(--ease-sortie);
+}
+.telephone-cadre img { width: 100%; height: auto; }
+.telephone-halo {
+  position: absolute;
+  inset: 12% -18% -6% -18%;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--orange-fond), transparent 72%);
+}
+.ecrans { display: flex; gap: var(--sp-2); flex-wrap: wrap; margin-top: var(--sp-5); }
+.ecran {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  border: 1px solid var(--trait);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+  transition: border-color var(--dur-2) var(--ease-sortie), color var(--dur-2) var(--ease-sortie);
+}
+.ecran .icone { width: 13px; height: 13px; color: var(--orange); }
+.ecran:hover { border-color: var(--orange); color: var(--texte); }
+@media (max-width: 720px) {
+  .responsive-bloc { grid-template-columns: 1fr; justify-items: start; gap: var(--sp-5); }
+}
+
+/* ------------------------------------------------------------------ local
+   La carte est traitée comme un document du site : filtrée pour entrer
+   dans la palette, encadrée par un filet, surmontée d'un repère orange. */
+.local-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(22px, 4vw, 60px);
+  align-items: stretch;
+}
+@media (max-width: 900px) { .local-grille { grid-template-columns: 1fr; } }
+
+.carte {
+  position: relative;
+  border: 1px solid var(--trait);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  min-height: clamp(260px, 34vw, 420px);
+  background: var(--papier);
+}
+.carte iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  filter: grayscale(1) contrast(0.92) brightness(1.06);
+  transition: filter var(--dur-3) var(--ease-sortie);
+}
+.carte:hover iframe { filter: grayscale(0.55) contrast(0.98) brightness(1.02); }
+.carte::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(243, 240, 233, 0.28), transparent 32%);
+  mix-blend-mode: multiply;
+}
+.carte-epingle {
+  position: absolute;
+  z-index: 2;
+  left: var(--sp-4);
+  bottom: var(--sp-4);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 14px;
+  background: var(--nuit);
+  color: var(--os);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.carte-epingle .point {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--orange);
+  animation: pulse-point 2.4s var(--ease-doux) infinite;
+}
+@keyframes pulse-point {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 74, 10, 0.55); }
+  70%      { box-shadow: 0 0 0 9px rgba(255, 74, 10, 0); }
+}
+
+.zones { display: grid; gap: 1px; background: var(--trait); border: 1px solid var(--trait); margin-top: var(--sp-5); }
+.zone {
+  background: var(--bg);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--sp-4);
+  align-items: baseline;
+  padding: var(--sp-3) var(--sp-4);
+  font-size: var(--fs-small);
+}
+.zone .d { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--texte-doux); }
+
+/* ---------------------------------------------------------------- appel */
+.appel { position: relative; overflow: hidden; }
+.appel-inner { position: relative; z-index: 1; }
+.appel h2 { font-size: var(--fs-h1); max-width: 15ch; }
+.appel p { margin-top: var(--sp-4); color: var(--texte-doux); font-size: var(--fs-lead); max-width: 46ch; }
+.appel-actions { margin-top: var(--sp-6); display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* -------------------------------------------------------------- contact */
+.contact-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+}
+@media (max-width: 900px) { .contact-grille { grid-template-columns: 1fr; } }
+
+.contact-lignes { border-top: 1px solid var(--trait); margin-top: var(--sp-5); }
+.contact-lignes li {
+  display: grid;
+  grid-template-columns: 10ch 1fr;
+  gap: var(--sp-4);
+  align-items: baseline;
+  padding-block: var(--sp-3);
+  border-bottom: 1px solid var(--trait);
+  font-size: var(--fs-small);
+}
+.contact-lignes .k {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+.contact-lignes a:hover { color: var(--orange); }
+
+.formulaire {
+  background: var(--papier);
+  border: 1px solid var(--trait);
+  border-radius: var(--radius-md);
+  padding: clamp(20px, 3vw, 34px);
+  display: grid;
+  gap: var(--sp-4);
+}
+.champ { display: grid; gap: 7px; }
+.champ label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+.champ input, .champ textarea {
+  font-family: inherit;
+  font-size: var(--fs-body);
+  color: var(--texte);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--trait-fort);
+  padding: 9px 0;
+  resize: vertical;
+  transition: border-color var(--dur-2) var(--ease-sortie);
+}
+.champ input::placeholder, .champ textarea::placeholder { color: var(--gris-clair); }
+.champ input:focus, .champ textarea:focus { outline: 0; border-bottom-color: var(--orange); }
+.form-note { font-size: var(--fs-small); color: var(--texte-doux); }
+.form-note a { color: var(--orange); }
+
+/* -------------------------------------------------------------- légales */
+.legal-corps { max-width: 68ch; }
+.legal-corps h2 { margin-top: var(--sp-7); font-size: var(--fs-h3); }
+.legal-corps h2:first-child { margin-top: 0; }
+.legal-corps p { margin-top: var(--sp-3); color: var(--texte-doux); line-height: 1.7; }
