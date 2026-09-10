@@ -70,15 +70,19 @@
 body[data-page="creation"]  { --ambiance: var(--bleu); }
 body[data-page="offres"]    { --ambiance: var(--vert); }
 body[data-page="creations"] { --ambiance: var(--orange); }
-body[data-page="agence"]    { --ambiance: var(--bleu); }
+body[data-page="studio"]    { --ambiance: var(--bleu); }
 body[data-page="faq"]       { --ambiance: var(--vert); }
 body[data-page="contact"]   { --ambiance: var(--orange); }
 body[data-page="legal"]     { --ambiance: var(--gris); }
 
-body[data-page="offres"] .entete-page  { --ambiance-fond: var(--vert-fond); }
-body[data-page="agence"] .entete-page  { --ambiance-fond: var(--bleu-fond); }
-body[data-page="faq"] .entete-page     { --ambiance-fond: var(--papier); }
-body[data-page="legal"] .entete-page   { --ambiance-fond: var(--papier); }
+/* Le fond clair d'un onglet ne doit jamais l'emporter sur un en-tête
+   déclaré sombre : sa sélectivité est plus forte que celle de
+   « .entete-page.est-sombre », d'où le :not() explicite. Sans lui, le
+   texte reste couleur os sur un aplat pâle — illisible. */
+body[data-page="offres"] .entete-page:not(.est-sombre) { --ambiance-fond: var(--vert-fond); }
+body[data-page="studio"] .entete-page:not(.est-sombre) { --ambiance-fond: var(--bleu-fond); }
+body[data-page="faq"] .entete-page:not(.est-sombre)    { --ambiance-fond: var(--papier); }
+body[data-page="legal"] .entete-page:not(.est-sombre)  { --ambiance-fond: var(--papier); }
 
 @media (max-width: 720px) {
   .entete-page {
@@ -87,3 +91,12 @@ body[data-page="legal"] .entete-page   { --ambiance-fond: var(--papier); }
   }
   .entete-page .indice { font-size: clamp(7rem, 42vw, 12rem); opacity: 0.07; }
 }
+
+/* Teinte de chapitre — posée sur le corps, elle vaut donc pour la page
+   entière : repères, accents, filets et cadres s'accordent au chiffre de
+   l'en-tête. Déclarée après les ambiances d'onglet, à sélectivité égale,
+   pour l'emporter sur la teinte générale du studio. */
+body[data-teinte="orange"]     { --ambiance: var(--orange); }
+body[data-teinte="bleu"]       { --ambiance: var(--bleu); }
+body[data-teinte="vert"]       { --ambiance: var(--vert); }
+body[data-teinte="bleu-encre"] { --ambiance: var(--bleu-encre); }

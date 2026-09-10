@@ -1,12 +1,14 @@
-import { initVoile } from "./voile.js?v=21";
-import { initNav } from "./nav.js?v=21";
-import { initMotion } from "./motion.js?v=21";
-import { initHero } from "./hero.js?v=21";
-import { initCreations } from "./creations.js?v=21";
-import { initVagues } from "./vagues.js?v=21";
-import { initOrbite } from "./orbite.js?v=21";
-import { initOffres } from "./offres.js?v=21";
-import { initFaq } from "./faq.js?v=21";
+import { initVoile } from "./voile.js?v=22";
+import { initNav } from "./nav.js?v=22";
+import { initMotion } from "./motion.js?v=22";
+import { initHero } from "./hero.js?v=22";
+import { initCreations } from "./creations.js?v=22";
+import { initVagues } from "./vagues.js?v=22";
+import { initOrbite } from "./orbite.js?v=22";
+import { initCadre } from "./cadre.js?v=22";
+import { initChapitre } from "./chapitre.js?v=22";
+import { initOffres } from "./offres.js?v=22";
+import { initFaq } from "./faq.js?v=22";
 
 document.documentElement.classList.remove("no-js");
 
@@ -20,6 +22,8 @@ initHero();
 initCreations();
 initVagues();
 initOrbite();
+initCadre();
+initChapitre();
 initMotion();
 
 // Le titre du hero se lève une fois la page prête. setTimeout plutôt que

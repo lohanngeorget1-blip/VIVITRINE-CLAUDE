@@ -16,22 +16,24 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&family=Inter+Tight:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="preload" as="image" href="assets/video/poster-hero.jpg" />
-<link rel="stylesheet" href="css/tokens.css?v=21" />
-<link rel="stylesheet" href="css/base.css?v=21" />
-<link rel="stylesheet" href="css/buttons.css?v=21" />
-<link rel="stylesheet" href="css/motion.css?v=21" />
-<link rel="stylesheet" href="css/skyline.css?v=21" />
-<link rel="stylesheet" href="css/vagues.css?v=21" />
-<link rel="stylesheet" href="css/navbar.css?v=21" />
-<link rel="stylesheet" href="css/loading.css?v=21" />
-<link rel="stylesheet" href="css/hero.css?v=21" />
-<link rel="stylesheet" href="css/pages.css?v=21" />
-<link rel="stylesheet" href="css/sections.css?v=21" />
-<link rel="stylesheet" href="css/offres.css?v=21" />
-<link rel="stylesheet" href="css/creations.css?v=21" />
-<link rel="stylesheet" href="css/orbite.css?v=21" />
-<link rel="stylesheet" href="css/faq.css?v=21" />
-<link rel="stylesheet" href="css/footer.css?v=21" />
+<link rel="stylesheet" href="css/tokens.css?v=22" />
+<link rel="stylesheet" href="css/base.css?v=22" />
+<link rel="stylesheet" href="css/buttons.css?v=22" />
+<link rel="stylesheet" href="css/motion.css?v=22" />
+<link rel="stylesheet" href="css/marque.css?v=22" />
+<link rel="stylesheet" href="css/skyline.css?v=22" />
+<link rel="stylesheet" href="css/vagues.css?v=22" />
+<link rel="stylesheet" href="css/navbar.css?v=22" />
+<link rel="stylesheet" href="css/loading.css?v=22" />
+<link rel="stylesheet" href="css/hero.css?v=22" />
+<link rel="stylesheet" href="css/pages.css?v=22" />
+<link rel="stylesheet" href="css/studio.css?v=22" />
+<link rel="stylesheet" href="css/sections.css?v=22" />
+<link rel="stylesheet" href="css/offres.css?v=22" />
+<link rel="stylesheet" href="css/creations.css?v=22" />
+<link rel="stylesheet" href="css/orbite.css?v=22" />
+<link rel="stylesheet" href="css/faq.css?v=22" />
+<link rel="stylesheet" href="css/footer.css?v=22" />
 </head>
 <body data-page="accueil">
 <a class="skip-link" href="#contenu">Aller au contenu</a>
@@ -55,7 +57,7 @@
       <a class="nav-lien" href="creation-de-site.html" data-cap="Création de site">Création de site</a>
       <a class="nav-lien" href="offres.html" data-cap="Offres">Offres</a>
       <a class="nav-lien" href="creations.html" data-cap="Créations">Créations</a>
-      <a class="nav-lien" href="agence.html" data-cap="Agence">Agence</a>
+      <a class="nav-lien" href="studio.html" data-cap="Le studio">Le studio</a>
       <a class="nav-lien" href="faq.html" data-cap="FAQ">FAQ</a>
       <a class="nav-lien" href="contact.html" data-cap="Contact">Contact</a>
     </nav>
@@ -75,7 +77,7 @@
     <a href="creation-de-site.html">Création de site</a>
     <a href="offres.html">Offres</a>
     <a href="creations.html">Créations</a>
-    <a href="agence.html">Agence</a>
+    <a href="studio.html">Le studio</a>
     <a href="faq.html">FAQ</a>
     <a href="contact.html">Contact</a>
   </nav>
@@ -140,7 +142,7 @@
 <section class="section-pad a-vagues">
   <div class="vagues" data-vagues aria-hidden="true"></div>
   <div class="container">
-    <div class="section-tete" data-reveal><h2 class="section-titre">Ce que fait Vivitrine</h2><p class="section-intro">Quatre métiers, un seul objectif : que votre site travaille pour vous plutôt que de dormir en ligne.</p></div>
+    <div class="section-tete" data-reveal><h2 class="section-titre" data-ouvre>Ce que fait Vivitrine</h2><p class="section-intro">Quatre métiers, un seul objectif : que votre site travaille pour vous plutôt que de dormir en ligne.</p></div>
     <div class="services-grille" data-reveal data-reveal-group="services">
       <article class="service">
         <span class="num">01</span>
@@ -168,8 +170,8 @@
 
 <section class="section-pad" id="creations">
   <div class="container">
-    <div class="section-tete" data-reveal><h2 class="section-titre">Nos créations</h2><p class="section-intro">Quatre sites, quatre univers. Passez le curseur sur la pile : chaque projet remonte à son tour.</p></div>
-    <div class="pile" data-reveal="cadre">
+    <div class="section-tete" data-reveal><h2 class="section-titre" data-ouvre>Nos créations</h2><p class="section-intro">Quatre sites, quatre univers. Passez le curseur sur la pile : chaque projet remonte à son tour.</p></div>
+    <div class="pile cadre cadre-fixe" data-cadre-retard="620" data-reveal="cadre">
       <button class="pile-item pile-1" type="button" aria-label="Marée Large, Restaurant"><img src="assets/creations/maree.jpg" alt="Page d'accueil du restaurant Marée Large, cuisine marine à Saint-Malo" loading="lazy" decoding="async" /><span class="pile-legende"><span class="nom">Marée Large</span><span class="type">Restaurant</span></span></button>
       <button class="pile-item pile-2" type="button" aria-label="Forma Bâtiment, Construction"><img src="assets/creations/forma.jpg" alt="Page d'accueil de Forma Bâtiment, entreprise de construction" loading="lazy" decoding="async" /><span class="pile-legende"><span class="nom">Forma Bâtiment</span><span class="type">Construction</span></span></button>
       <button class="pile-item pile-3" type="button" aria-label="Mouvement Studio, Kinésithérapie"><img src="assets/creations/mouvement.jpg" alt="Page d'accueil de Mouvement Studio, cabinet de kinésithérapie" loading="lazy" decoding="async" /><span class="pile-legende"><span class="nom">Mouvement Studio</span><span class="type">Kinésithérapie</span></span></button>
@@ -187,7 +189,7 @@
 <section class="section-pad-sm">
   <div class="container">
     <div class="responsive-bloc" data-reveal>
-      <figure class="telephone-cadre" data-parallax="34">
+      <figure class="telephone-cadre cadre cadre-fixe" data-parallax="34">
         <span class="telephone-halo" aria-hidden="true"></span>
         <img src="assets/creations/telephone.png" alt="Un site Vivitrine affiché sur un téléphone" loading="lazy" decoding="async" />
       </figure>
@@ -207,15 +209,6 @@
   </div>
 </section>
 
-<section class="section-pad on-sombre">
-  <div class="container">
-    <div class="section-tete" data-reveal><h2 class="section-titre">Comment on travaille</h2><p class="section-intro">Six étapes, du premier café à la maintenance. Vous validez à chacune, et vous savez toujours où en est le projet.</p></div>
-    <div class="orbite-zone" data-orbite data-reveal>
-      <ol class="orbite-source"><li><span class="etape-num">Étape 01</span><h3>Premier échange</h3><p>On parle de votre métier, de vos clients et de ce qui vous distingue de l'atelier d'à côté. On repart avec un cadrage écrit et un prix ferme : pas de fourchette, pas de supplément découvert en cours de route.</p><span class="duree">1 heure</span></li><li><span class="etape-num">Étape 02</span><h3>Maquette</h3><p>La page d'accueil est dessinée pour de bon : mise en page, choix typographiques, traitement de vos photos. Vous voyez à quoi ressemblera le site avant qu'une seule ligne de code soit écrite, et vous demandez les changements que vous voulez.</p><span class="duree">3 à 5 jours</span></li><li><span class="etape-num">Étape 03</span><h3>Rédaction</h3><p>On écrit les pages avec vous, dans vos mots. C'est souvent l'étape que les clients redoutent : elle est comprise dans le prix, et vous n'avez qu'à répondre à nos questions et fournir vos photos.</p><span class="duree">en parallèle</span></li><li><span class="etape-num">Étape 04</span><h3>Développement</h3><p>Intégration du design, mise en place du référencement local, optimisation de la vitesse d'affichage et tests sur téléphone, tablette et ordinateur. Vous suivez l'avancement en direct sur une adresse privée.</p><span class="duree">1 à 2 semaines</span></li><li><span class="etape-num">Étape 05</span><h3>Mise en ligne</h3><p>Nom de domaine, hébergement, fiche Google et redirections depuis l'ancien site. Puis une séance de prise en main pour que vous sachiez modifier vos horaires, vos photos et vos tarifs sans nous appeler.</p><span class="duree">1 journée</span></li><li><span class="etape-num">Étape 06</span><h3>Suivi</h3><p>Mises à jour techniques, sauvegardes, corrections et petites évolutions. Trois mois de suivi sont compris avec le forfait Signature, puis c'est un abonnement mensuel sans engagement de durée.</p><span class="duree">au fil de l'eau</span></li></ol>
-    </div>
-  </div>
-</section>
-
 <section class="section-pad-sm">
   <div class="container">
     <div class="chiffres" data-reveal data-reveal-group="chiffres">
@@ -228,67 +221,42 @@
 </section>
 
 <section class="section-pad on-sombre">
-  <div class="frise frise-decor frise-orange" aria-hidden="true"><div class="frise-piste"><span class="frise-motif"></span><span class="frise-motif"></span></div></div>
+  <div class="frise frise-decor frise-bleu" aria-hidden="true"><div class="frise-piste"><span class="frise-motif"></span><span class="frise-motif"></span></div></div>
   <div class="container" style="position:relative;z-index:1">
-    <div class="section-tete" data-reveal><h2 class="section-titre">Pourquoi Vivitrine</h2><p class="section-intro">Trois raisons concrètes, vérifiables dès le premier échange.</p></div>
-    <div class="raisons" data-reveal data-reveal-group="raisons">
-      <article class="raison leve">
-        <span class="icone"><svg viewBox="0 0 22 22" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="8.2" stroke="currentColor" stroke-width="1.5"/><path d="m14.4 7.6-2 4.8-4.8 2 2-4.8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
-        <h3>On connaît le terrain</h3>
-        <p>Installés à Rennes, on sait ce que cherche un client qui tape « crêperie » ou « plombier » un dimanche soir. Le site est construit pour cette recherche-là.</p>
-      </article>
-      <article class="raison leve">
-        <span class="icone"><svg viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M12 2 5 12.4h4.6L9 20l7-10.4h-4.6z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
-        <h3>Rapide, vraiment</h3>
-        <p>Pas de gabarit lourd ni d'extensions inutiles : nos sites s'affichent en moins d'une seconde, même en 4G moyenne. C'est ce qui retient un visiteur pressé.</p>
-      </article>
-      <article class="raison leve">
-        <span class="icone"><svg viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M3 16.5V8.2a1.7 1.7 0 0 1 1.7-1.7h4.1l1.7 1.7h6.8a1.7 1.7 0 0 1 1.7 1.7v6.6a1.7 1.7 0 0 1-1.7 1.7H4.7A1.7 1.7 0 0 1 3 16.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
-        <h3>Un seul interlocuteur</h3>
-        <p>La personne qui dessine votre site est celle qui vous répond au téléphone six mois plus tard. Pas de service client, pas de ticket à ouvrir.</p>
-      </article>
+    <div class="section-tete" data-reveal><h2 class="section-titre" data-ouvre>Entrer dans l'univers Vivitrine</h2><p class="section-intro">Ce qu'on est, pourquoi on travaille comme ça, et ce qu'on cherche à prouver sur chaque projet.</p></div>
+    <div class="portes" data-reveal>
+      <a class="porte cadre" href="studio-histoire.html" data-reveal data-reveal-group="univers">
+        <span class="porte-cle">01</span>
+        <span><strong>D'où vient Vivitrine</strong><p>L'écart entre un travail remarquable et une vitrine qui ne le dit pas. C'est de là que tout est parti.</p></span>
+        <svg class="fleche" width="15" height="10" viewBox="0 0 15 10" fill="none" aria-hidden="true"><path d="M0 5h13M9.5 1 13.5 5 9.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="porte cadre" href="studio-pourquoi.html" data-reveal data-reveal-group="univers">
+        <span class="porte-cle">02</span>
+        <span><strong>Pourquoi Vivitrine</strong><p>Sur un site de huit pages, la coordination d'une équipe coûte plus cher que le travail lui-même.</p></span>
+        <svg class="fleche" width="15" height="10" viewBox="0 0 15 10" fill="none" aria-hidden="true"><path d="M0 5h13M9.5 1 13.5 5 9.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="porte cadre" href="studio-methode.html" data-reveal data-reveal-group="univers">
+        <span class="porte-cle">03</span>
+        <span><strong>Notre méthode</strong><p>Conception, design, développement, mise en ligne, maintenance : ce qui se passe vraiment, semaine après semaine.</p></span>
+        <svg class="fleche" width="15" height="10" viewBox="0 0 15 10" fill="none" aria-hidden="true"><path d="M0 5h13M9.5 1 13.5 5 9.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a class="porte cadre" href="studio-vision.html" data-reveal data-reveal-group="univers">
+        <span class="porte-cle">04</span>
+        <span><strong>Notre vision</strong><p>La différence d'image ne vient presque jamais des moyens. Elle vient du soin apporté aux détails.</p></span>
+        <svg class="fleche" width="15" height="10" viewBox="0 0 15 10" fill="none" aria-hidden="true"><path d="M0 5h13M9.5 1 13.5 5 9.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
     </div>
+    <p class="offres-note" style="margin-top:var(--sp-6)">
+      <a href="studio.html">Voir l'univers en entier <svg class="fleche" width="15" height="10" viewBox="0 0 15 10" fill="none" aria-hidden="true"><path d="M0 5h13M9.5 1 13.5 5 9.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </p>
   </div>
 </section>
 
 <section class="section-pad" id="offres">
   <div class="container">
-    <div class="section-tete" data-reveal><h2 class="section-titre">Des prix annoncés à l'avance</h2><p class="section-intro">Trois formules pour couvrir l'essentiel des besoins. Le devis détaille chaque ligne avant de commencer.</p></div>
+    <div class="section-tete" data-reveal><h2 class="section-titre" data-ouvre>Des prix annoncés à l'avance</h2><p class="section-intro">Trois formules pour couvrir l'essentiel des besoins. Le devis détaille chaque ligne avant de commencer.</p></div>
     <div class="offres-grille" data-reveal data-reveal-group="offres"></div>
     <p class="offres-note">Hébergement et nom de domaine facturés à part, autour de 10 € par mois. Aucun abonnement imposé.</p>
-  </div>
-</section>
-
-<section class="section-pad">
-  <div class="container">
-    <div class="section-tete" data-reveal><h2 class="section-titre">Un studio à Rennes</h2><p class="section-intro">Une agence qu'on peut venir voir, et qui peut venir vous voir.</p></div>
-    <div class="local-grille" data-reveal>
-      <div>
-        <p class="section-intro" style="max-width:46ch">
-          Le studio est installé à Rennes, à deux pas de l'intra-muros. On se déplace
-          volontiers en Ille-et-Vilaine et sur toute la Bretagne pour lancer un projet,
-          et le reste se mène très bien à distance.
-        </p>
-        <ul class="liste-cochee">
-          <li><span class="icone"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7.4 5.4 10.8 12 3.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Premier rendez-vous sur place, chez vous ou au studio</span></li>
-          <li><span class="icone"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7.4 5.4 10.8 12 3.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Photos de votre atelier ou de votre boutique sur demande</span></li>
-          <li><span class="icone"><svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7.4 5.4 10.8 12 3.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Suivi ensuite par téléphone et visio, sans perdre de temps</span></li>
-        </ul>
-        <div class="zones">
-          <div class="zone"><span>Rennes et sa métropole</span><span class="d">sur place</span></div>
-          <div class="zone"><span>Ille-et-Vilaine, Côtes-d'Armor, Morbihan</span><span class="d">sur place</span></div>
-          <div class="zone"><span>Reste de la France</span><span class="d">à distance</span></div>
-        </div>
-      </div>
-      <div class="carte" data-reveal="cadre">
-        <iframe
-          title="Carte de Rennes, Bretagne"
-          src="https://maps.google.com/maps?q=Rennes%2C%20Bretagne%2C%20France&amp;z=13&amp;output=embed"
-          loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          allowfullscreen></iframe>
-        <span class="carte-epingle"><span class="point"></span>Rennes, Bretagne</span>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -329,7 +297,16 @@
     <div class="pied-col">
       <h4>Le studio</h4>
       <ul>
-        <li><a href="agence.html">Agence</a></li>
+        <li><a href="studio.html">L'univers Vivitrine</a></li>
+        <li><a href="studio-histoire.html">Histoire</a></li>
+        <li><a href="studio-pourquoi.html">Pourquoi nous</a></li>
+        <li><a href="studio-methode.html">La méthode</a></li>
+        <li><a href="studio-vision.html">La vision</a></li>
+      </ul>
+    </div>
+    <div class="pied-col">
+      <h4>Aller plus loin</h4>
+      <ul>
         <li><a href="faq.html">FAQ</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -352,6 +329,6 @@
 </footer>
 
 <script>document.getElementById("annee").textContent = new Date().getFullYear();</script>
-<script type="module" src="js/main.js?v=21"></script>
+<script type="module" src="js/main.js?v=22"></script>
 </body>
 </html>

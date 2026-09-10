@@ -1,0 +1,511 @@
+/* L'univers du studio — le hub et ses chapitres.
+   ==================================================================
+   « Le studio » n'est plus une page : c'est une entrée qui en ouvre
+   quatre autres. Le hub montre les quatre chapitres, chaque chapitre
+   se lit seul et renvoie au suivant. On avance dans la marque au lieu
+   de revenir systématiquement à l'accueil.
+
+   Le signe du site — les équerres de cadrage — porte la navigation :
+   une carte survolée se referme en cadre avant de s'ouvrir. */
+
+/* ------------------------------------------------------- sous-navigation
+   Elle n'apparaît que dans l'univers du studio : on sait qu'on est
+   entré quelque part, et on circule sans repasser par le hub. */
+.sous-nav {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 40;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  backdrop-filter: blur(14px) saturate(1.3);
+  border-bottom: 1px solid var(--trait);
+}
+.sous-nav-inner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: 11px;
+}
+.sous-nav-inner::-webkit-scrollbar { display: none; }
+
+.sous-nav-racine {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+  padding-right: var(--sp-5);
+  border-right: 1px solid var(--trait);
+}
+.sous-nav-racine:hover { color: var(--orange); }
+.sous-nav-racine svg { width: 13px; height: 9px; }
+
+.sous-nav-liens { display: flex; gap: var(--sp-4); flex: none; }
+.sous-nav-liens a {
+  position: relative;
+  flex: none;
+  font-size: var(--fs-small);
+  color: var(--texte-doux);
+  padding-block: 3px;
+  transition: color var(--dur-1) ease;
+}
+.sous-nav-liens a::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-2) var(--ease-sortie);
+}
+.sous-nav-liens a:hover { color: var(--texte); }
+.sous-nav-liens a:hover::after,
+.sous-nav-liens a.est-actif::after { transform: scaleX(1); }
+.sous-nav-liens a.est-actif { color: var(--texte); }
+
+.sous-nav-num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--gris-clair);
+  margin-right: 5px;
+}
+
+/* ------------------------------------------------------------- le hub */
+.hub {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--trait);
+  border: 1px solid var(--trait);
+}
+
+.hub-carte {
+  --cadre-marge: 14px;
+  --cadre-teinte: var(--ambiance-carte, var(--orange));
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--sp-3);
+  padding: clamp(24px, 3.2vw, 44px);
+  background: var(--bg);
+  overflow: hidden;
+  transition: background-color var(--dur-2) var(--ease-sortie);
+}
+.hub-carte:hover { background: var(--papier); }
+
+/* Le chiffre du chapitre, en filigrane, comme sur les en-têtes d'onglet. */
+.hub-carte .hub-indice {
+  position: absolute;
+  right: 0.06em;
+  bottom: -0.3em;
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 62, "wght" 700;
+  font-size: clamp(5rem, 11vw, 9.5rem);
+  line-height: 0.8;
+  color: var(--ambiance-carte, var(--orange));
+  opacity: 0.07;
+  pointer-events: none;
+  transition: opacity var(--dur-3) var(--ease-sortie), transform var(--dur-3) var(--ease-elan);
+}
+.hub-carte:hover .hub-indice { opacity: 0.13; transform: translateY(-6px); }
+
+.hub-carte .hub-cle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ambiance-carte, var(--orange));
+}
+.hub-carte h3 {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" var(--wdth-display), "wght" 640;
+  font-size: clamp(1.4rem, 2.3vw, 2.05rem);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  max-width: 14ch;
+}
+.hub-carte p {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--texte-doux);
+  max-width: 40ch;
+  position: relative;
+  z-index: 1;
+}
+
+/* Ce que contient le chapitre : replié au repos, déployé à l'approche.
+   L'information arrive progressivement au lieu d'être empilée. */
+.hub-sommaire {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows var(--dur-3) var(--ease-elan),
+    opacity var(--dur-2) var(--ease-sortie);
+}
+.hub-sommaire > ul { overflow: hidden; min-height: 0; }
+.hub-carte:hover .hub-sommaire,
+.hub-carte:focus-visible .hub-sommaire,
+.hub-carte.est-deploye .hub-sommaire { grid-template-rows: 1fr; opacity: 1; }
+
+.hub-sommaire li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding-top: 7px;
+  font-size: var(--fs-small);
+  color: var(--texte-doux);
+}
+.hub-sommaire li::before {
+  content: "";
+  width: 12px;
+  height: 1px;
+  flex: none;
+  background: var(--ambiance-carte, var(--orange));
+  transform: translateY(-4px);
+}
+
+.hub-lire {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--texte);
+  position: relative;
+  z-index: 1;
+}
+.hub-lire .fleche { transition: transform var(--dur-2) var(--ease-elan); }
+.hub-carte:hover .hub-lire .fleche { transform: translateX(5px); }
+
+.hub-carte:nth-child(1) { --ambiance-carte: var(--orange); }
+.hub-carte:nth-child(2) { --ambiance-carte: var(--bleu); }
+.hub-carte:nth-child(3) { --ambiance-carte: var(--vert); }
+.hub-carte:nth-child(4) { --ambiance-carte: var(--bleu-encre); }
+
+@media (max-width: 820px) { .hub { grid-template-columns: 1fr; } }
+
+/* ------------------------------------------------------- le chapitre */
+.chapitre { max-width: 68ch; }
+.chapitre-bloc { margin-top: var(--sp-8); }
+.chapitre-bloc:first-child { margin-top: 0; }
+
+.chapitre-bloc h2 {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" var(--wdth-display), "wght" 620;
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  line-height: 1.06;
+  letter-spacing: -0.018em;
+}
+.chapitre-bloc h2 .accent { color: var(--ambiance, var(--orange)); }
+.chapitre-bloc p {
+  margin-top: var(--sp-4);
+  color: var(--texte-doux);
+  line-height: 1.72;
+  font-size: var(--fs-lead);
+}
+.chapitre-bloc p strong { color: var(--texte); font-weight: 600; }
+
+.chapitre-repere {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ambiance, var(--orange));
+  display: block;
+  margin-bottom: var(--sp-3);
+}
+
+/* La citation : c'est le moment où la marque parle à la première
+   personne. Grande, cadrée, seule sur sa ligne. */
+.citation {
+  margin-top: var(--sp-8);
+  padding: clamp(26px, 3.4vw, 44px);
+  --cadre-marge: 0px;
+  --cadre-teinte: var(--ambiance, var(--orange));
+  --cadre-bras: 22px;
+}
+.citation p {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 86, "wght" 560;
+  font-size: clamp(1.15rem, 2vw, 1.62rem);
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  color: var(--texte);
+  max-width: 26ch;
+}
+.citation footer {
+  margin-top: var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+
+/* Repères datés : l'évolution du projet, lue d'un coup d'œil. */
+.jalons { margin-top: var(--sp-7); border-top: 1px solid var(--trait); }
+.jalon-ligne {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: var(--sp-5);
+  padding-block: var(--sp-5);
+  border-bottom: 1px solid var(--trait);
+  transition: background-color var(--dur-2) var(--ease-sortie);
+}
+.jalon-ligne:hover { background: var(--papier); }
+.jalon-ligne .quand {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ambiance, var(--orange));
+  padding-top: 3px;
+}
+.jalon-ligne h3 { font-size: var(--fs-h3); }
+.jalon-ligne p { margin-top: 6px; font-size: var(--fs-small); color: var(--texte-doux); line-height: 1.6; }
+@media (max-width: 620px) {
+  .jalon-ligne { grid-template-columns: 1fr; gap: var(--sp-2); }
+}
+
+/* Face à face : ce qui nous différencie, sans caricaturer l'autre. */
+.face-a-face {
+  margin-top: var(--sp-7);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--trait);
+  border: 1px solid var(--trait);
+}
+.face-col { background: var(--bg); padding: var(--sp-5); }
+.face-col.est-nous { background: var(--papier); }
+.face-col h3 {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--trait);
+}
+.face-col.est-nous h3 { color: var(--orange); }
+.face-col li {
+  padding-block: var(--sp-4);
+  border-bottom: 1px solid var(--trait);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--texte-doux);
+}
+.face-col li:last-child { border-bottom: 0; padding-bottom: 0; }
+.face-col.est-nous li { color: var(--texte); }
+@media (max-width: 700px) { .face-a-face { grid-template-columns: 1fr; } }
+
+/* ------------------------------------------- passage au chapitre suivant */
+.suite {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--trait);
+  border-top: 1px solid var(--trait);
+}
+.suite-lien {
+  background: var(--bg);
+  padding: clamp(26px, 3.4vw, 52px) var(--container-pad);
+  display: grid;
+  gap: 7px;
+  align-content: center;
+  transition: background-color var(--dur-2) var(--ease-sortie);
+}
+.suite-lien:hover { background: var(--papier); }
+.suite-lien .sens {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+.suite-lien strong {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" var(--wdth-display), "wght" 620;
+  font-size: clamp(1.15rem, 2vw, 1.7rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+}
+.suite-lien:hover strong { color: var(--orange); }
+.suite-lien.est-fin { text-align: right; }
+.suite-lien.est-fin .fleche { justify-self: end; }
+@media (max-width: 640px) {
+  .suite { grid-template-columns: 1fr; }
+  .suite-lien.est-fin { text-align: left; }
+  .suite-lien.est-fin .fleche { justify-self: start; }
+}
+
+/* ------------------------------------------------- entrée dans l'univers
+   Bloc posé sur les autres pages : une porte vers un chapitre précis
+   plutôt qu'un lien de plus dans le pied de page. */
+.porte {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--sp-5);
+  padding: var(--sp-5) clamp(18px, 2.4vw, 30px);
+  --cadre-marge: 0px;
+  --cadre-teinte: var(--trait);
+  transition: background-color var(--dur-2) var(--ease-sortie);
+}
+.porte:hover { background: var(--papier); --cadre-teinte: var(--orange); }
+.on-sombre .porte:hover { background: var(--nuit-2); }
+.porte .porte-cle {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+.porte strong {
+  display: block;
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" var(--wdth-display), "wght" 600;
+  font-size: clamp(1.02rem, 1.5vw, 1.28rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.porte p { font-size: var(--fs-small); color: var(--texte-doux); margin-top: 3px; }
+.porte .fleche { color: var(--orange); transition: transform var(--dur-2) var(--ease-elan); }
+.porte:hover .fleche { transform: translateX(6px); }
+@media (max-width: 640px) {
+  .porte { grid-template-columns: 1fr; gap: var(--sp-3); }
+}
+
+/* Mise au point : la carte visée reste nette, les autres s'effacent.
+   C'est le même principe que le cadre — on regarde une chose à la fois. */
+@media (hover: hover) and (pointer: fine) {
+  .hub:has(.hub-carte:hover) .hub-carte:not(:hover) { opacity: 0.44; }
+  .hub-carte { transition: background-color var(--dur-2) var(--ease-sortie), opacity var(--dur-2) var(--ease-sortie); }
+}
+
+/* Sans survol possible, le sommaire des chapitres est déjà déployé. */
+@media (hover: none) {
+  .hub-sommaire { grid-template-rows: 1fr; opacity: 1; }
+  .hub-carte { --cadre-bras: 18px; }
+}
+
+/* Les quatre portes de l'accueil : l'entrée dans l'univers, sur fond de
+   nuit. Chaque porte prend la teinte de son chapitre. */
+.portes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--trait-clair);
+  border: 1px solid var(--trait-clair);
+}
+.portes .porte {
+  --cadre-marge: 10px;
+  background: var(--nuit);
+  padding: clamp(20px, 2.6vw, 32px);
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: var(--sp-4);
+}
+.portes .porte .porte-cle {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 62, "wght" 700;
+  font-size: 1.5rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--teinte-porte, var(--orange));
+  opacity: 0.55;
+  grid-column: 1 / -1;
+}
+.portes .porte strong { color: var(--os); }
+.portes .porte p { color: rgba(243, 240, 233, 0.62); max-width: 34ch; }
+.portes .porte:hover { background: var(--nuit-2); --cadre-teinte: var(--teinte-porte, var(--orange)); }
+.portes .porte:nth-child(1) { --teinte-porte: var(--orange); }
+.portes .porte:nth-child(2) { --teinte-porte: var(--bleu); }
+.portes .porte:nth-child(3) { --teinte-porte: var(--vert); }
+.portes .porte:nth-child(4) { --teinte-porte: var(--os); }
+@media (max-width: 760px) { .portes { grid-template-columns: 1fr; } }
+
+/* ------------------------------------------------------- rail de lecture
+   Le sommaire du chapitre, posé dans la marge droite. Il suit la lecture
+   et dit combien il reste. js/chapitre.js le construit à partir des
+   titres réellement présents ; il n'existe qu'au-delà de 1240 px. */
+.rail {
+  position: fixed;
+  right: clamp(18px, 3vw, 46px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  display: grid;
+  gap: 2px;
+  width: 178px;
+  padding-left: var(--sp-4);
+  border-left: 1px solid var(--trait);
+}
+.rail a {
+  display: grid;
+  grid-template-columns: 1.6rem 1fr;
+  align-items: baseline;
+  gap: 2px;
+  padding-block: 6px;
+  font-size: var(--fs-small);
+  line-height: 1.32;
+  color: var(--gris-clair);
+  transition: color var(--dur-2) var(--ease-sortie);
+}
+.rail a:hover { color: var(--texte); }
+.rail-num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  color: var(--gris-clair);
+  transition: color var(--dur-2) var(--ease-sortie);
+}
+.rail a.est-actif { color: var(--texte); }
+.rail a.est-actif .rail-num { color: var(--ambiance, var(--orange)); }
+
+/* La jauge double le filet de gauche : elle se remplit à la lecture. */
+.rail-jauge {
+  position: absolute;
+  left: -1px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  overflow: hidden;
+}
+.rail-jauge i {
+  display: block;
+  height: 100%;
+  background: var(--ambiance, var(--orange));
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+/* Le rail occupe la marge : la colonne de texte reste au calibre de
+   lecture et n'a pas besoin d'être élargie. */
+@media (max-width: 1239px) { .rail { display: none; } }
+@media (prefers-reduced-motion: reduce) { .rail-jauge i { transition: none; } }
+
+/* Le rail n'apparaît qu'une fois la lecture engagée : au-dessus il se
+   poserait sur l'en-tête sombre, en dessous sur le pied de page. */
+.rail {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-2) var(--ease-sortie), visibility var(--dur-2);
+}
+.rail.est-visible { opacity: 1; visibility: visible; }
+
+/* La règle de la DA vaut aussi ici : ce qui se clique est orange. La note
+   sous les portes portait la couleur du texte courant. */
+.on-sombre .offres-note a { color: var(--orange-vif); }
+.on-sombre .offres-note a:hover { text-decoration: underline; text-underline-offset: 3px; }

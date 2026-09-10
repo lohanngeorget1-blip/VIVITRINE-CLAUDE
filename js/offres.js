@@ -1,4 +1,4 @@
-import { offres } from "../data/offres.js?v=21";
+import { offres } from "../data/offres.js?v=22";
 
 const coche = `<svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7.4 5.4 10.8 12 3.6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 

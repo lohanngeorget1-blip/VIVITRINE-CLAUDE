@@ -1,0 +1,148 @@
+/* VIVITRINE — le signe de marque : « le cadre ».
+   ==================================================================
+   Une vitrine, c'est un cadre par lequel on regarde. C'est le seul
+   signe que le nom nous donne, et c'est celui que le site porte
+   partout : quatre équerres d'angle, comme des repères de cadrage.
+
+   Le geste est toujours le même : au repos les équerres sont courtes
+   et ouvertes, à l'approche elles se referment jusqu'à former un
+   cadre complet. Un objet cadré est un objet qu'on peut ouvrir.
+
+   Ce fichier ne définit ni couleur ni typographie : il s'appuie sur
+   tokens.css. La direction artistique « Rennes, atelier numérique »
+   ne bouge pas — on lui ajoute une signature. */
+
+/* La longueur des équerres est animable : déclarée en propriété
+   typée, elle s'interpole comme une longueur ordinaire. */
+@property --cadre-bras {
+  syntax: "<length-percentage>";
+  inherits: true;
+  initial-value: 14px;
+}
+
+.cadre {
+  position: relative;
+  --cadre-bras: 14px;
+  --cadre-trait: 1px;
+  /* Écart du cadre au bloc : positif vers l'intérieur, négatif pour
+     déborder. Un cadre intérieur survit à un parent en overflow:hidden. */
+  --cadre-marge: 0px;
+  --cadre-teinte: var(--trait-fort);
+}
+
+.cadre::before {
+  content: "";
+  position: absolute;
+  inset: var(--cadre-marge);
+  pointer-events: none;
+  z-index: 2;
+  background:
+    linear-gradient(var(--cadre-teinte) 0 0) 0 0,
+    linear-gradient(var(--cadre-teinte) 0 0) 0 0,
+    linear-gradient(var(--cadre-teinte) 0 0) 100% 0,
+    linear-gradient(var(--cadre-teinte) 0 0) 100% 0,
+    linear-gradient(var(--cadre-teinte) 0 0) 0 100%,
+    linear-gradient(var(--cadre-teinte) 0 0) 0 100%,
+    linear-gradient(var(--cadre-teinte) 0 0) 100% 100%,
+    linear-gradient(var(--cadre-teinte) 0 0) 100% 100%;
+  background-repeat: no-repeat;
+  background-size:
+    var(--cadre-bras) var(--cadre-trait), var(--cadre-trait) var(--cadre-bras),
+    var(--cadre-bras) var(--cadre-trait), var(--cadre-trait) var(--cadre-bras),
+    var(--cadre-bras) var(--cadre-trait), var(--cadre-trait) var(--cadre-bras),
+    var(--cadre-bras) var(--cadre-trait), var(--cadre-trait) var(--cadre-bras);
+  transition:
+    --cadre-bras var(--dur-2) var(--ease-elan),
+    background-color var(--dur-2) var(--ease-sortie);
+}
+
+/* Le geste : les équerres se rejoignent. 50 % + un cheveu pour que les
+   deux moitiés se recouvrent au lieu de laisser un point de jour. */
+.cadre.est-cadre::before,
+.cadre:hover::before,
+.cadre:focus-within::before { --cadre-bras: calc(50% + 0.5px); }
+
+/* Teintes — l'orange reste réservé à ce qui se clique. */
+.cadre-orange { --cadre-teinte: var(--orange); }
+.cadre-bleu   { --cadre-teinte: var(--bleu); }
+.cadre-clair  { --cadre-teinte: var(--trait-clair); }
+.on-sombre .cadre { --cadre-teinte: var(--trait-clair); }
+
+/* Un cadre qui ne réagit qu'au scroll, pas au survol : pour les blocs
+   qu'on ne clique pas. js/cadre.js pose « est-cadre » à l'entrée. */
+.cadre-fixe:hover::before { --cadre-bras: var(--cadre-bras); }
+
+/* ------------------------------------------------------------------
+   L'ouverture — le mouvement signature.
+   Le contenu ne monte pas : il s'ouvre depuis une ligne médiane, comme
+   un rideau de fer qu'on lève. Une seule courbe, réutilisée partout. */
+
+[data-ouvre] {
+  clip-path: inset(50% 0 50% 0);
+  opacity: 0;
+  transition:
+    clip-path 1.05s var(--ease-elan) var(--reveal-delay, 0s),
+    opacity 0.5s linear var(--reveal-delay, 0s);
+}
+[data-ouvre].is-in {
+  clip-path: inset(0 0 0 0);
+  opacity: 1;
+}
+.no-js [data-ouvre] { clip-path: none; opacity: 1; }
+
+/* ------------------------------------------------------------------
+   Le sceau — la marque en petit, posée en tête de section.
+   Un carré cadré qui porte le V. Il remplace la pastille générique. */
+
+.sceau {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  --cadre-bras: 9px;
+  --cadre-trait: 1px;
+  --cadre-teinte: var(--orange);
+}
+.sceau span {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 62, "wght" 700;
+  font-size: 0.82rem;
+  line-height: 1;
+  color: var(--orange);
+}
+.on-sombre .sceau span { color: var(--orange-vif); }
+
+/* ------------------------------------------------------------------
+   Le fil — un trait vertical qui relie les sections d'une même page.
+   C'est ce qui fait qu'on lit un chapitre plutôt qu'une pile de blocs. */
+
+.fil {
+  position: relative;
+  padding-left: clamp(20px, 4vw, 52px);
+}
+.fil::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(var(--trait), var(--trait) 70%, transparent);
+}
+.fil::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ambiance, var(--orange));
+}
+@media (max-width: 620px) { .fil { padding-left: 18px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cadre::before { transition: none; }
+  [data-ouvre] { clip-path: none; opacity: 1; }
+}

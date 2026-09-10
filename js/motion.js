@@ -17,7 +17,9 @@ const borne = (v, min, max) => Math.max(min, Math.min(max, v));
 
 /* -------------------------------------------------- apparitions au scroll */
 function initApparitions() {
-  const cibles = document.querySelectorAll("[data-reveal]");
+  // [data-ouvre] partage le même déclencheur : c'est le mouvement
+  // signature du site, il doit arriver au même moment que le reste.
+  const cibles = document.querySelectorAll("[data-reveal], [data-ouvre]");
   if (!cibles.length) return;
 
   if (reduit.matches || !("IntersectionObserver" in window)) {
