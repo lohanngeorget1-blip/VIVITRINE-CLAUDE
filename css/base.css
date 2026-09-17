@@ -21,6 +21,12 @@ body {
 
 body.no-scroll { overflow: hidden; }
 
+/* Toute classe posant un display (grid, flex…) l'emporte sur la règle
+   « [hidden] { display: none } » du navigateur, qui n'a aucune
+   sélectivité. On la rétablit une fois pour tout le site : masquer un
+   élément avec `hidden` doit marcher quel que soit son display. */
+[hidden] { display: none !important; }
+
 img, video { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; }

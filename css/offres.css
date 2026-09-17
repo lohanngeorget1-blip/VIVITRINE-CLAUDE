@@ -91,3 +91,72 @@
 @media (max-width: 900px) {
   .offres-grille { grid-template-columns: 1fr; }
 }
+
+/* --- quatre offres : trois formules web, puis l'application ----------
+   L'application mobile ne se compare pas aux trois autres (ni pages, ni
+   hébergement, ni référencement) : elle prend une bande à part sous la
+   grille plutôt qu'une quatrième colonne trompeuse. */
+
+.offre-abonnement {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 84, "wght" 600;
+  font-size: 1.05rem;
+  color: var(--texte);
+}
+.offre-abonnement span { color: var(--texte-doux); font-size: var(--fs-small); }
+.offre-mise-en-avant .offre-abonnement { color: var(--os); }
+.offre-mise-en-avant .offre-abonnement span { color: rgba(243, 240, 233, 0.6); }
+
+.offre-pour {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--trait);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+.offre-mise-en-avant .offre-pour {
+  border-color: var(--trait-clair);
+  color: rgba(243, 240, 233, 0.6);
+}
+
+/* Sur une carte large, les enfants sont une liste à plat : les laisser
+   se répartir sur trois colonnes dans l'ordre du source éparpillait le
+   montant, la mention et le périmètre sur des colonnes différentes.
+   Tout reste donc dans la première colonne, et seule la liste des
+   prestations passe à droite, sur toute la hauteur. */
+.offre-large {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: clamp(28px, 5vw, 86px);
+  align-content: start;
+}
+.offre-large > * { grid-column: 1; }
+.offre-large .offre-points {
+  grid-column: 2;
+  grid-row: 1 / span 99;
+  align-self: start;
+  margin-top: 0;
+}
+.offre-large .offre-resume { max-width: 52ch; }
+
+@media (max-width: 980px) {
+  .offre-large { grid-template-columns: 1fr; }
+  .offre-large > *, .offre-large .offre-points { grid-column: 1; }
+  .offre-large .offre-points { grid-row: auto; margin-top: var(--sp-5); }
+}
+
+/* « À partir de » se pose au-dessus du montant : collé devant, il rendait
+   la ligne d'abonnement illisible (« puis à partir de 129 € / mois »). */
+.offre-prefixe {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+  margin-bottom: 2px;
+}

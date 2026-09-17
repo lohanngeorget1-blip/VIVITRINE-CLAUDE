@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Offres et tarifs — Vivitrine</title>
-<meta name="description" content="Sites vitrines à partir de 449 € et applications mobiles sur mesure. Quatre formules claires, hébergement et maintenance compris, pour les entreprises de Rennes et de Bretagne." />
+<title>Votre tableau de bord — Vivitrine</title>
+<meta name="description" content="Votre tableau de bord client Vivitrine." />
 <meta name="theme-color" content="#0e1116" />
-<meta property="og:title" content="Offres et tarifs — Vivitrine" />
-<meta property="og:description" content="Sites vitrines à partir de 449 € et applications mobiles sur mesure. Quatre formules claires, hébergement et maintenance compris, pour les entreprises de Rennes et de Bretagne." />
+<meta property="og:title" content="Votre tableau de bord — Vivitrine" />
+<meta property="og:description" content="Votre tableau de bord client Vivitrine." />
 <meta property="og:type" content="website" />
 <link rel="icon" href="assets/logo/favicon-32.png" sizes="32x32" type="image/png" />
 <link rel="icon" href="assets/logo/favicon-64.png" sizes="64x64" type="image/png" />
@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&family=Inter+Tight:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<meta name="robots" content="noindex, follow" />
 <link rel="stylesheet" href="css/tokens.css?v=23" />
 <link rel="stylesheet" href="css/base.css?v=23" />
 <link rel="stylesheet" href="css/buttons.css?v=23" />
@@ -36,7 +37,7 @@
 <link rel="stylesheet" href="css/carte.css?v=23" />
 <link rel="stylesheet" href="css/footer.css?v=23" />
 </head>
-<body data-page="offres">
+<body data-page="compte">
 <a class="skip-link" href="#contenu">Aller au contenu</a>
 
 <div class="voile" aria-hidden="true">
@@ -56,7 +57,7 @@
     <nav class="nav-liens" aria-label="Navigation principale">
       <a class="nav-lien" href="index.html" data-cap="Accueil">Accueil</a>
       <a class="nav-lien" href="creation-de-site.html" data-cap="Création de site">Création de site</a>
-      <a class="nav-lien est-actif" href="offres.html" aria-current="page" data-cap="Offres">Offres</a>
+      <a class="nav-lien" href="offres.html" data-cap="Offres">Offres</a>
       <a class="nav-lien" href="creations.html" data-cap="Créations">Créations</a>
       <a class="nav-lien" href="studio.html" data-cap="Le studio">Le studio</a>
       <a class="nav-lien" href="faq.html" data-cap="FAQ">FAQ</a>
@@ -93,67 +94,50 @@
 
 <section class="entete-page">
   <div class="container" data-reveal>
-    <span class="etiquette">Offres</span>
-    <h1>Trois formules, prix annoncés.</h1>
-    <p class="section-intro">De la vitrine simple au projet sur mesure. Chaque ligne du devis est expliquée avant de commencer.</p>
+    <span class="etiquette">Espace client</span>
+    <h1>Votre tableau de bord.</h1>
+    <p class="section-intro">Votre site, votre interface d'administration et vos documents.</p>
   </div>
-  <span class="indice" aria-hidden="true">02</span>
+  <span class="indice" aria-hidden="true"></span>
 </section>
 
-<section class="section-pad" id="offres">
+<section class="section-pad" data-espace-client>
   <div class="container">
-    
-    <div class="porte-prix cadre" data-porte-prix="offres" data-reveal>
-      <div>
-        <h2>Nos tarifs, sans rendez-vous.</h2>
-        <p>Laissez votre adresse et la grille complète s'affiche : création, abonnement
-           mensuel et le détail de ce que contient chaque formule. Vous recevez la même
-           grille par e-mail, pour la relire à tête reposée.</p>
-      </div>
-      <form novalidate>
-        <div>
-          <label for="email-prix-offres">Votre adresse e-mail</label>
-          <input id="email-prix-offres" type="email" name="email" autocomplete="email"
-                 placeholder="vous@votre-entreprise.fr" required />
+    <p data-chargement class="section-intro">Chargement de votre espace…</p>
+
+    <div data-contenu hidden>
+      <p class="avis" data-avis role="status"></p>
+
+      <div data-tableau class="tableau-bord" hidden>
+        <div class="bord-grille">
+          <div class="bord-carte">
+            <span class="k">Client</span>
+            <span class="v" data-champ="entreprise">Votre entreprise</span>
+            <span class="d" data-champ="nom">Votre nom</span>
+          </div>
+          <div class="bord-carte">
+            <span class="k">Formule</span>
+            <span class="v" data-champ="offre">PRO</span>
+            <span class="d" data-champ="statut">Abonnement actif</span>
+          </div>
+          <div class="bord-carte">
+            <span class="k">Votre site</span>
+            <a class="v" data-champ="site" href="#" aria-disabled="true">votre-domaine.fr</a>
+            <span class="d">En ligne, hébergement Vivitrine</span>
+          </div>
+          <div class="bord-carte">
+            <span class="k">Votre back-office</span>
+            <a class="v" data-champ="backend" href="#" aria-disabled="true">admin.vivitrine.fr/votre-site</a>
+            <span class="d">Modifier vos contenus, vos horaires et vos photos.</span>
+          </div>
         </div>
-        <p class="porte-erreur" data-erreur role="alert"></p>
-        <button type="submit" class="btn btn-primaire btn-bloc">Afficher les tarifs</button>
-        <p class="porte-mention">
-          Votre adresse sert à vous envoyer cette grille et, si vous le demandez, une
-          proposition. Elle n'est ni revendue ni transmise.
-          <a href="politique-confidentialite.html">Politique de confidentialité</a>
-        </p>
-      </form>
-    </div>
-    <div class="offres-grille" data-reveal data-reveal-group="offres"></div>
-    <p class="offres-note">Chaque formule associe une création réglée une seule fois et un abonnement mensuel qui couvre l'hébergement professionnel, la maintenance, la sécurité et le suivi. Le nom de domaine reste à votre nom. Sans engagement de durée : résiliable à tout moment.</p>
-  </div>
-</section>
 
-<section class="section-pad">
-  <div class="container">
-    <div class="section-tete" data-reveal><h2 class="section-titre" data-ouvre>Avant de choisir</h2></div>
-    <div class="faq-liste" data-limite="4" data-reveal></div>
-  </div>
-</section>
-
-<section class="section-pad-sm">
-  <div class="container">
-    <a class="porte cadre" href="studio-pourquoi.html" data-reveal>
-      <span class="porte-cle">Chapitre 02</span>
-      <span><strong>Pourquoi Vivitrine</strong><p>Pourquoi ces prix tiennent, et ce qu'une agence classique facture à la place.</p></span>
-      <svg class="fleche" width="15" height="10" viewBox="0 0 15 10" fill="none" aria-hidden="true"><path d="M0 5h13M9.5 1 13.5 5 9.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-  </div>
-</section>
-
-<section class="section-pad appel on-sombre carte-fond">
-  <div class="container appel-inner" data-reveal>
-    <h2>Un doute sur la formule adaptée ?</h2>
-    <p>On vous oriente vers l'offre qui a du sens pour votre activité, quitte à vous vendre moins.</p>
-    <div class="appel-actions">
-      <a class="btn btn-primaire" href="contact.html" data-magnetique="8">Parler de mon projet <svg class="fleche" width="15" height="10" viewBox="0 0 15 10" fill="none" aria-hidden="true"><path d="M0 5h13M9.5 1 13.5 5 9.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      <a class="btn btn-contour" href="offres.html">Voir les offres</a>
+        <div class="bord-actions">
+          <a class="btn btn-primaire" href="contact.html" data-magnetique="8">Demander une modification</a>
+          <a class="btn btn-contour" href="offres.html">Changer de formule</a>
+          <button class="btn btn-contour" type="button" data-deconnexion>Se déconnecter</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>

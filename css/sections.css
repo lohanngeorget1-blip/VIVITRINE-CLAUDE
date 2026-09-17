@@ -357,3 +357,43 @@
 .legal-corps h2 { margin-top: var(--sp-7); font-size: var(--fs-h3); }
 .legal-corps h2:first-child { margin-top: 0; }
 .legal-corps p { margin-top: var(--sp-3); color: var(--texte-doux); line-height: 1.7; }
+
+/* ---------------------------------------------------------------- équipe
+   Le fondateur prend une carte plus large : c'est lui l'interlocuteur,
+   la hiérarchie visuelle doit le dire avant le texte. */
+.equipe {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--trait);
+  border: 1px solid var(--trait);
+  margin-top: var(--sp-6);
+}
+.membre { background: var(--bg); padding: var(--sp-5); display: grid; gap: var(--sp-2); align-content: start; }
+.membre.est-fondateur { grid-column: span 2; background: var(--papier); }
+.membre-role {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+.membre h3 {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" var(--wdth-display), "wght" 640;
+  font-size: 1.14rem;
+  letter-spacing: -0.015em;
+}
+.membre.est-fondateur h3 { font-size: clamp(1.3rem, 2.1vw, 1.75rem); }
+.membre p { font-size: var(--fs-small); line-height: 1.6; color: var(--texte-doux); }
+.membre-lien { margin-top: var(--sp-2); font-size: var(--fs-small); color: var(--orange); }
+.membre-lien:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+@media (max-width: 1000px) { .equipe { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) {
+  .equipe { grid-template-columns: 1fr; }
+  .membre.est-fondateur { grid-column: span 1; }
+}
+
+/* Cinq métiers désormais, l'application mobile comprise. */
+@media (min-width: 981px) { .services-grille { grid-template-columns: repeat(5, minmax(0, 1fr)); } }

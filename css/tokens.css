@@ -38,6 +38,22 @@
   --vert: #0e8f76;           /* Vert Thabor */
   --vert-fond: #e2f1ed;
 
+  /* ---- Cartes marines
+     La direction du site vient des cartes de navigation bretonnes : fond
+     de papier, tracés bleu-gris, aplats de petits fonds, chiffres de
+     sonde. Le fond « os » qui existait déjà EST le papier de carte, on
+     ne le touche pas.
+
+     L'orange reste la signature et le seul signal d'action : sur une
+     vraie carte marine, c'est le magenta qui joue ce rôle — désigner ce
+     qui compte. L'orange en tient exactement la place. */
+  --sonde: #2f4d61;          /* tracés, chiffres de sonde, texte technique */
+  --sonde-2: #5c7d92;        /* tracés secondaires */
+  --sonde-3: #9db3c0;        /* courbes de niveau, trait le plus fin */
+  --haut-fond: #dde9ef;      /* aplat des petits fonds */
+  --estran: #e9e2d0;         /* laisse de basse mer, beige */
+  --graticule: rgba(47, 77, 97, 0.13);   /* quadrillage lat/long */
+
   /* ---- Filets */
   --trait: rgba(14, 17, 22, 0.13);
   --trait-fort: rgba(14, 17, 22, 0.24);

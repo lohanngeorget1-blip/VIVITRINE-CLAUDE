@@ -8,7 +8,7 @@
 // script et correctement indexée. Ce module ne la remplace que s'il peut
 // réellement construire l'orbite — sinon la liste reste en place.
 
-import { etapes } from "../data/etapes.js?v=22";
+import { etapes } from "../data/etapes.js?v=23";
 
 const RAYON = 0.36;      // rayon de l'orbite, en fraction de la largeur
 const VITESSE = 0.05;    // degrés par image

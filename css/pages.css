@@ -100,3 +100,9 @@ body[data-teinte="orange"]     { --ambiance: var(--orange); }
 body[data-teinte="bleu"]       { --ambiance: var(--bleu); }
 body[data-teinte="vert"]       { --ambiance: var(--vert); }
 body[data-teinte="bleu-encre"] { --ambiance: var(--bleu-encre); }
+
+/* Espace client et pages d'état : deux entrées qui ne sont pas des
+   onglets du site, mais qui méritent leur repère. */
+body[data-page="compte"] { --ambiance: var(--bleu); }
+body[data-page="etat"]   { --ambiance: var(--orange); }
+body[data-page="compte"] .entete-page:not(.est-sombre) { --ambiance-fond: var(--bleu-fond); }

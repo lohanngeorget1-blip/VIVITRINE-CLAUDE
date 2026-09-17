@@ -1,0 +1,207 @@
+/* Espace client, connexion et pages d'état.
+   ==================================================================
+   Trois familles qui partagent la même écriture : un bloc centré, un
+   repère coloré, un message clair et une sortie évidente. Une page
+   d'erreur qui ne propose rien est une impasse. */
+
+/* --- avis ------------------------------------------------------------ */
+.avis {
+  margin-top: var(--sp-5);
+  padding: var(--sp-4) var(--sp-5);
+  border-left: 3px solid var(--trait-fort);
+  background: var(--papier);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--texte-doux);
+}
+.avis:empty { display: none; }
+.avis strong { color: var(--texte); font-weight: 600; display: block; margin-bottom: 3px; }
+.avis a { color: var(--orange); text-decoration: underline; text-underline-offset: 2px; }
+.avis.est-attention { border-left-color: var(--orange); background: var(--orange-fond); }
+.avis.est-erreur    { border-left-color: var(--orange); background: var(--orange-fond); color: var(--texte); }
+.avis.est-succes    { border-left-color: var(--vert); background: var(--vert-fond); }
+
+/* --- connexion -------------------------------------------------------- */
+.connexion-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 440px);
+  gap: clamp(30px, 6vw, 92px);
+  align-items: start;
+}
+@media (max-width: 900px) { .connexion-grille { grid-template-columns: 1fr; } }
+
+.connexion-bloc {
+  --cadre-marge: 0px;
+  --cadre-teinte: var(--trait);
+  padding: clamp(24px, 3vw, 40px);
+  background: var(--papier);
+}
+.connexion-bloc h2 {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" var(--wdth-display), "wght" 640;
+  font-size: 1.3rem;
+  letter-spacing: -0.015em;
+}
+
+.champ-compte { display: grid; gap: 7px; margin-top: var(--sp-5); }
+.champ-compte label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+.champ-compte input {
+  padding: 13px 15px;
+  border: 1px solid var(--trait-fort);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  font: inherit;
+  color: var(--texte);
+}
+.champ-compte input:focus { outline: 2px solid var(--orange); outline-offset: 1px; }
+.champ-compte input:disabled { background: var(--os); color: var(--gris-clair); cursor: not-allowed; }
+
+.connexion-bloc .btn { margin-top: var(--sp-5); }
+.connexion-secondaire {
+  margin-top: var(--sp-4);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--trait);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: var(--fs-small);
+  color: var(--texte-doux);
+}
+.connexion-secondaire button {
+  font: inherit;
+  color: var(--orange);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.connexion-secondaire button:disabled { color: var(--gris-clair); cursor: default; }
+
+form.est-hors-service { opacity: 0.55; }
+
+/* --- tableau de bord -------------------------------------------------- */
+.tableau-bord.est-apercu { position: relative; }
+.tableau-bord.est-apercu::after {
+  content: "Aperçu";
+  position: absolute;
+  top: var(--sp-4); right: var(--sp-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+  border: 1px solid var(--trait-fort);
+  border-radius: var(--radius-pill);
+  padding: 3px 10px;
+}
+
+/* Nombre de colonnes fixé plutôt qu'auto-fit : avec quatre cartes,
+   auto-fit en calculait cinq et la cellule restée vide laissait voir le
+   fond gris des gouttières. */
+.bord-grille {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--trait);
+  border: 1px solid var(--trait);
+  margin-top: var(--sp-6);
+}
+@media (max-width: 1100px) { .bord-grille { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px)  { .bord-grille { grid-template-columns: 1fr; } }
+.bord-carte { background: var(--bg); padding: var(--sp-5); display: grid; gap: 7px; align-content: start; }
+.bord-carte .k {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+}
+.bord-carte .v {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 84, "wght" 620;
+  font-size: 1.22rem;
+  letter-spacing: -0.012em;
+  overflow-wrap: anywhere;
+}
+.bord-carte a.v { color: var(--orange); }
+.bord-carte a[aria-disabled="true"] { color: var(--gris-clair); pointer-events: none; }
+.bord-carte .d { font-size: var(--fs-small); color: var(--texte-doux); line-height: 1.55; }
+
+.bord-actions { margin-top: var(--sp-6); display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* --- pages d'état ----------------------------------------------------- */
+.statut {
+  min-height: calc(100svh - var(--header-h) - 120px);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding-block: var(--pad-section);
+}
+.statut-inner { max-width: 54ch; }
+
+/* Sélectivité portée à (0,2,0) : « .statut p » vaut (0,1,1) et
+   l'emporterait sinon sur une simple classe — le chiffre retomberait à la
+   taille du texte courant. */
+.statut .statut-code {
+  font-family: var(--font-display);
+  font-variation-settings: "wdth" 62, "wght" 700;
+  font-size: clamp(5rem, 17vw, 12rem);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  color: var(--ambiance, var(--orange));
+}
+.statut-signe {
+  display: inline-grid;
+  place-items: center;
+  width: 62px; height: 62px;
+  margin-bottom: var(--sp-5);
+  border-radius: 50%;
+  background: var(--ambiance-fond-signe, var(--orange-fond));
+  color: var(--ambiance, var(--orange));
+}
+.statut-signe svg { width: 26px; height: 26px; }
+
+.statut h1 {
+  margin-top: var(--sp-5);
+  font-size: clamp(1.7rem, 4vw, 3rem);
+  max-width: 20ch;
+  margin-inline: auto;
+}
+.statut p {
+  margin-top: var(--sp-5);
+  color: var(--texte-doux);
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+}
+.statut-actions {
+  margin-top: var(--sp-7);
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.statut-liens {
+  margin-top: var(--sp-8);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--trait);
+  display: flex;
+  gap: var(--sp-5);
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: var(--fs-small);
+}
+.statut-liens a { color: var(--texte-doux); }
+.statut-liens a:hover { color: var(--orange); }
+
+.statut.est-succes { --ambiance: var(--vert); --ambiance-fond-signe: var(--vert-fond); }
+.statut.est-info   { --ambiance: var(--bleu); --ambiance-fond-signe: var(--bleu-fond); }

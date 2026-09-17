@@ -1,12 +1,24 @@
 // Questions fréquentes — source unique de la section FAQ.
 export const questions = [
   {
+    q: "Pourquoi un abonnement mensuel en plus du prix de création ?",
+    r: "Parce qu'un site n'est pas un objet qu'on livre et qu'on oublie. L'abonnement couvre l'hébergement professionnel, les mises à jour de sécurité, les sauvegardes, la surveillance et le suivi. C'est ce qui fait qu'un site Vivitrine tient trois ans au lieu de se dégrader en six mois. Il est sans engagement de durée : vous pouvez l'arrêter quand vous voulez, et vous partez avec votre nom de domaine.",
+  },
+  {
+    q: "Faites-vous aussi des applications mobiles ?",
+    r: "Oui. Nous concevons et publions des applications natives iOS et Android, avec une interface dessinée sur mesure, un espace utilisateur et des notifications push. Le budget se situe entre 2 490 € et 3 490 € selon la complexité, puis 169 € à 229 € par mois pour la maintenance, la sécurité et les mises à jour imposées par Apple et Google. C'est une bonne idée quand vos clients reviennent souvent ; pour une première présence en ligne, un site reste plus efficace et bien moins cher.",
+  },
+  {
+    q: "Que se passe-t-il si j'arrête mon abonnement ?",
+    r: "Vous gardez votre nom de domaine, qui est à votre nom, et nous vous remettons l'intégralité de vos contenus et du code de votre site. Vous pouvez l'héberger ailleurs ou le confier à quelqu'un d'autre. Nous voulons être gardés parce que nous sommes utiles, pas parce que vous êtes coincé.",
+  },
+  {
     q: "Combien coûte un site avec Vivitrine ?",
-    r: "Un site vitrine démarre à 890 € en paiement unique pour le forfait Vitrine, et 1 690 € pour Signature. Le prix dépend du nombre de pages, des fonctionnalités et du travail de rédaction. Le devis est détaillé ligne par ligne avant de commencer : il n'y a pas de supplément découvert en cours de route.",
+    r: "Nos formules commencent à 449 € de création, puis 69 € par mois. La formule PRO, la plus choisie, est à 699 € puis 89 € par mois. La formule MAX démarre à 1 199 € puis 129 € par mois, et une application mobile se situe entre 2 490 € et 3 490 €, puis 169 € à 229 € par mois. Le devis détaille chaque ligne avant de commencer : rien ne se découvre en cours de route.",
   },
   {
     q: "Combien de temps faut-il pour mettre mon site en ligne ?",
-    r: "Comptez environ deux semaines pour un forfait Vitrine et trois à cinq semaines pour Signature. Le délai dépend surtout de la vitesse à laquelle vous nous transmettez vos contenus : photos, textes existants, informations pratiques. Le planning est fixé au démarrage et nous nous y tenons.",
+    r: "Comptez environ deux semaines pour une formule START, trois à cinq semaines pour une PRO ou une MAX, et six à dix semaines pour une application mobile — délais de validation par l'App Store et Google Play compris. Le délai dépend surtout de la vitesse à laquelle vous nous transmettez vos contenus. Le planning est fixé au démarrage et nous nous y tenons.",
   },
   {
     q: "Puis-je modifier mon site moi-même ensuite ?",
@@ -22,7 +34,7 @@ export const questions = [
   },
   {
     q: "Qui s'occupe du nom de domaine et de l'hébergement ?",
-    r: "Nous nous chargeons des démarches et vous restez propriétaire du nom de domaine, ce qui est essentiel. Vous pouvez conserver un domaine existant ou en réserver un nouveau. L'hébergement est facturé à part, autour de 10 € par mois selon la formule.",
+    r: "Nous nous chargeons des démarches et vous restez propriétaire du nom de domaine, ce qui est essentiel : il est déposé à votre nom, pas au nôtre. Vous pouvez conserver un domaine existant ou en réserver un nouveau. L'hébergement professionnel, lui, est compris dans votre abonnement mensuel — il n'y a rien à payer en plus.",
   },
   {
     q: "Que comprend la maintenance ?",

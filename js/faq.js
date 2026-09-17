@@ -1,4 +1,4 @@
-import { questions } from "../data/faq.js?v=22";
+import { questions } from "../data/faq.js?v=23";
 
 // FAQ : un seul volet ouvert à la fois, l'accordéon reste lisible.
 export function initFaq() {

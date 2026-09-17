@@ -199,3 +199,17 @@
 @media (min-width: 1081px) {
   .menu-mobile { display: none; }
 }
+
+/* Accès à l'espace client : présent mais discret — c'est une porte pour
+   les clients déjà là, pas un appel à l'action pour les visiteurs. */
+.nav-compte {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--texte-doux);
+  padding: 6px 2px;
+  transition: color var(--dur-1) ease;
+}
+.nav-compte:hover { color: var(--orange); }
+@media (max-width: 1080px) { .nav-compte { display: none; } }

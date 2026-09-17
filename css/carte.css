@@ -1,0 +1,113 @@
+/* Vivitrine — le vocabulaire des cartes marines.
+   ==================================================================
+   Le fond « os » du site est déjà le papier d'une carte. On lui ajoute
+   ce qui fait qu'on la reconnaît : un quadrillage de latitude et de
+   longitude, des coordonnées en clair, des chiffres de sonde, et les
+   repères qu'on trouve sur une carte de navigation.
+
+   Règle tenue partout : tout ce vocabulaire est en bleu de sonde et très
+   pâle. Il situe, il n'appelle pas. L'orange continue à ne désigner que
+   ce qui se clique — sur une vraie carte, c'est le magenta qui tient ce
+   rôle, l'orange en prend exactement la place.
+
+   Aucun de ces éléments ne doit gêner la lecture : ce sont des traits
+   d'un pixel à 13 % d'encre, jamais des aplats sous du texte. */
+
+/* ------------------------------------------------------------ graticule
+   Le quadrillage de la carte. En dégradés répétés plutôt qu'en SVG : le
+   navigateur le dessine sans un seul nœud dans le DOM. */
+.carte-fond { position: relative; }
+.carte-fond::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  --maille: clamp(56px, 6vw, 94px);
+  background-image:
+    repeating-linear-gradient(to right, var(--graticule) 0 1px, transparent 1px var(--maille)),
+    repeating-linear-gradient(to bottom, var(--graticule) 0 1px, transparent 1px var(--maille));
+  /* Le quadrillage s'éteint sur les bords : une grille qui s'arrête net
+     ressemble à un tableau, pas à une carte. */
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 50%, #000 30%, transparent 100%);
+}
+.carte-fond > * { position: relative; z-index: 1; }
+
+.on-sombre.carte-fond::before { --graticule: rgba(157, 179, 192, 0.16); }
+
+/* ------------------------------------------------------- coordonnées
+   Les vraies coordonnées de Rennes. Elles ne décorent pas : elles disent
+   où est le studio, ce que le site répète partout ailleurs en toutes
+   lettres. */
+.coord {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  color: var(--sonde-2);
+}
+.coord .sep { width: 14px; height: 1px; background: var(--sonde-3); flex: none; }
+.on-sombre .coord { color: var(--sonde-3); }
+
+/* ------------------------------------------------------ chiffre de sonde
+   Sur une carte marine, la profondeur est écrite en petits chiffres
+   penchés, posés à même le fond. On s'en sert pour numéroter : c'est
+   plus juste que des puces, et c'est le signe de la marque. */
+.sonde-num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  font-style: italic;
+  letter-spacing: 0.04em;
+  color: var(--sonde-2);
+}
+
+/* ------------------------------------------------------------- repères
+   La croix des points relevés, telle qu'elle figure sur les cartes. */
+.gps {
+  position: relative;
+  display: inline-block;
+  width: 11px; height: 11px;
+  flex: none;
+}
+.gps::before, .gps::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+.gps::before { left: 50%; top: 0; width: 1px; height: 100%; transform: translateX(-50%); }
+.gps::after  { top: 50%; left: 0; height: 1px; width: 100%; transform: translateY(-50%); }
+
+/* ---------------------------------------------------- courbes de niveau
+   Les boucles irrégulières que js/carte.js dessine dans une zone. Elles
+   s'empilent comme des isobathes : plus on va vers le centre, plus le
+   fond est profond. */
+.isobathes {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.isobathes svg { display: block; width: 100%; height: 100%; }
+.isobathes path {
+  fill: none;
+  stroke: var(--sonde-3);
+  stroke-width: 1;
+  opacity: 0.5;
+}
+/* La plus profonde porte un aplat très pâle : c'est ce qui fait lire un
+   relief plutôt qu'un empilement de traits. */
+.isobathes path.est-fond { fill: var(--haut-fond); fill-opacity: 0.5; stroke: none; }
+/* Sur fond de nuit, l'opacité du calque et celle du trait se
+   multipliaient : les courbes tombaient à 15 % d'encre, invisibles. Le
+   calque repasse à pleine opacité et c'est le trait qui dose. */
+.on-sombre .isobathes { opacity: 1; }
+.on-sombre .isobathes path { stroke: rgba(157, 179, 192, 0.42); opacity: 1; }
+.on-sombre .isobathes path.est-fond { fill: rgba(157, 179, 192, 0.07); }
+
+@media (prefers-reduced-motion: reduce) {
+  .carte-fond::before { mask-image: none; -webkit-mask-image: none; opacity: 0.6; }
+}
