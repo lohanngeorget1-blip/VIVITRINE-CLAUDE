@@ -119,7 +119,7 @@ function monterConnexion(form) {
       avis.innerHTML =
         "<strong>Espace client en préparation.</strong> La connexion sera ouverte " +
         "dès la mise en service de notre serveur. En attendant, écrivez à " +
-        '<a href="mailto:lohann@vivitrine.fr">lohann@vivitrine.fr</a> : ' +
+        '<a href="mailto:vivitrine.dizagn@gmail.com">vivitrine.dizagn@gmail.com</a> : ' +
         "nous vous transmettons vos accès à la main.";
     }
     return;
