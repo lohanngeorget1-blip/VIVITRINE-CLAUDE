@@ -205,3 +205,14 @@ form.est-hors-service { opacity: 0.55; }
 
 .statut.est-succes { --ambiance: var(--vert); --ambiance-fond-signe: var(--vert-fond); }
 .statut.est-info   { --ambiance: var(--bleu); --ambiance-fond-signe: var(--bleu-fond); }
+
+/* Le piège à robots doit être invisible à l'œil ET ignoré par les
+   lecteurs d'écran, sans utiliser display:none — que certains automates
+   détectent justement pour l'éviter. */
+.piege {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}

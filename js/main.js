@@ -9,6 +9,7 @@ import { initChapitre } from "./chapitre.js?v=23";
 import { initCarte } from "./carte.js?v=23";
 import { initPrix } from "./prix.js?v=23";
 import { initCompte } from "./compte.js?v=23";
+import { initContact } from "./contact.js?v=23";
 import { initOffres } from "./offres.js?v=23";
 import { initFaq } from "./faq.js?v=23";
 
@@ -21,6 +22,7 @@ initNav();
 initOffres();
 initPrix();
 initCompte();
+initContact();
 initFaq();
 initHero();
 initCreations();

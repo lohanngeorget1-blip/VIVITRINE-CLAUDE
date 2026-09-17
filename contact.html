@@ -117,7 +117,13 @@
       </ul>
     </div>
 
-    <form class="formulaire" data-reveal="cadre" action="mailto:vivitrine.dizagn@gmail.com" method="post" enctype="text/plain">
+    <form class="formulaire" data-contact data-reveal="cadre" action="merci.html" method="post">
+      <!-- Piège à robots : invisible pour un humain, rempli par les
+           automates. Le serveur écarte silencieusement ces envois. -->
+      <div class="piege" aria-hidden="true">
+        <label for="site_web">Ne pas remplir</label>
+        <input id="site_web" name="site_web" type="text" tabindex="-1" autocomplete="off" />
+      </div>
       <div class="champ">
         <label for="nom">Nom ou nom de l'entreprise</label>
         <input id="nom" name="nom" type="text" required placeholder="Atelier Lemoine" />
@@ -135,7 +141,8 @@
         <textarea id="message" name="message" rows="5" placeholder="Ce que vous avez aujourd'hui, ce que vous aimeriez…"></textarea>
       </div>
       <button type="submit" class="btn btn-primaire btn-bloc" data-magnetique="5">Envoyer ma demande</button>
-      <p class="form-note">Ce formulaire ouvre votre messagerie. Vous préférez écrire directement ? <a href="mailto:vivitrine.dizagn@gmail.com">vivitrine.dizagn@gmail.com</a></p>
+      <p class="avis" data-avis role="status"></p>
+      <p class="form-note">Réponse sous 48 heures ouvrées. Vous préférez écrire directement ? <a href="mailto:vivitrine.dizagn@gmail.com">vivitrine.dizagn@gmail.com</a></p>
     </form>
   </div>
 </section>
